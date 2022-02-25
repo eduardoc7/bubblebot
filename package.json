@@ -1,0 +1,19 @@
+{
+  "name": "bubblebot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "license": "MIT",
+  "dependencies": {
+    "qrcode-terminal": "^0.12.0",
+    "whatsapp-web.js": "github:pedroslopez/whatsapp-web.js#multidevice"
+  },
+  "scripts": {
+    "dev": "ts-node-dev --transpile-only --ignore-watch node_modules src/client.ts"
+  },
+  "devDependencies": {
+    "@types/qrcode-terminal": "^0.12.0",
+    "ts-node-dev": "^1.1.8",
+    "typescript": "^4.5.5"
+  }
+}
