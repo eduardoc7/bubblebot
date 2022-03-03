@@ -6,7 +6,8 @@
   "license": "MIT",
   "dependencies": {
     "qrcode-terminal": "^0.12.0",
-    "whatsapp-web.js": "^1.16.1"
+    "redis": "^4.0.4",
+    "whatsapp-web.js": "latest"
   },
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only --ignore-watch node_modules src/index.ts",
@@ -14,6 +15,7 @@
   },
   "devDependencies": {
     "@types/qrcode-terminal": "^0.12.0",
+    "@types/redis": "^4.0.11",
     "@typescript-eslint/eslint-plugin": "^5.13.0",
     "@typescript-eslint/parser": "^5.13.0",
     "eslint": "^8.10.0",

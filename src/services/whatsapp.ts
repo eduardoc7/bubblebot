@@ -17,6 +17,7 @@ client.on('auth_failure', () => console.log('Authentication failed.'));
 client.on('disconnected', () => console.log('WhatsApp lost connection.'));
 client.on('ready', async () => {
   console.log('WhatsApp bot successfully connected!');
+  client.sendPresenceAvailable();
 });
 
 client.initialize();
