@@ -1,4 +1,5 @@
 import type { Message } from 'whatsapp-web.js';
+import OrderHandlerCache from '../cache/OrderHandlerCache';
 
 export const OrderMessageHandler = {
   async execute(msg: Message): Promise<Message> {
@@ -6,8 +7,16 @@ export const OrderMessageHandler = {
     await chat.sendStateTyping();
 
     const order = await msg.getOrder();
-    console.log(order);
+    const data = await OrderHandlerCache.prepareOrderToCache(msg, order);
+    await OrderHandlerCache.setOder('pedido:' + msg.from, data);
 
-    return msg.reply('Estamos processando seu pedido!');
+    console.log(order);
+    console.log(await OrderHandlerCache.getOder('pedido:' + msg.from));
+
+    return msg.reply(
+      `Nós recebemos seu pedido com sucesso. ✅
+      \nSe deseja finalizar o pedido digite: *#finalizar*
+      `,
+    );
   },
 };
