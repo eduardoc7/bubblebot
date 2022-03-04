@@ -1,6 +1,7 @@
 import type { Message } from 'whatsapp-web.js';
 import OrderHandlerCache from '../cache/OrderHandlerCache';
 import type { IOrder } from '../interfaces/Order';
+import HelperCurrency from '../utils/HelperCurrency';
 
 export const FinishOrderHandler = {
   async execute(msg: Message): Promise<Message> {
@@ -17,21 +18,32 @@ export const FinishOrderHandler = {
       );
     }
 
-    const items_to_print = obj.items.map((item) => {
+    obj.status = 'confirma-dados';
+    await OrderHandlerCache.setOder('order:' + msg.from, JSON.stringify(obj));
+
+    const items_to_print = obj.items.map((item, index) => {
       return `
-      Nome: ${item.name}
-      \nQuantidade: ${item.quantity}
-      \nPreço: R$ ${item.price}`;
+      Produto (${index + 1}):
+        nome: ${item.name}
+        quantidade: ${item.quantity}
+        preço: *${HelperCurrency.priceToString(Number(item.price))}*\n`;
     });
 
+    /**
+     * @todo
+     * quando os botoes funcionarem: primeiro dar um send message com os dados e depois enviar um botão de confirmação
+     */
     return msg.reply(`
-      *Nome*: ${obj.name}
-      \n*Número de Contato:* ${obj.number}
-      \n*Carrinho*:
-      ${items_to_print}
-      *Total da Compra:* ${obj.total}
+    \t\t\t\t*DADOS DO PEDIDO*
 
-      *Deseja confirmar o pedido?*
+    \n*Cliente:*
+      nome: ${obj.name}
+      número de Contato: ${obj.number}
+
+    \n*Carrinho:*${items_to_print}
+    \nTotal da Compra: *${HelperCurrency.priceToString(Number(obj.total))}*
+
+    \n*Deseja confirmar o pedido?*
     `);
   },
 };
