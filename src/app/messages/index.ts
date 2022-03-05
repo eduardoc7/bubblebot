@@ -7,15 +7,16 @@ import { AnyMessageHandler } from './AnyMessageHandler';
 export const MessageHandler = async (message: Message): Promise<void> => {
   console.log(message);
 
-  await messageDispatcher.register('order', OrderMessageHandler);
-  await messageDispatcher.register('finalizar', FinishOrderHandler);
-  // if (!message.fromMe) {
-  //   await messageDispatcher.register('chat', AnyMessageHandler);
-  // }
+  let dispatchName = '';
+  if (!message.fromMe) {
+    await messageDispatcher.register('order', OrderMessageHandler);
+    await messageDispatcher.register('finalizar', FinishOrderHandler);
+    await messageDispatcher.register('chat', AnyMessageHandler);
 
-  const dispatchName = !message.body.startsWith('#')
-    ? message.type
-    : message.body.slice(1);
+    dispatchName = !message.body.startsWith('#')
+      ? message.type
+      : message.body.slice(1);
+  }
 
   return messageDispatcher.dispatch(dispatchName, message);
 };
