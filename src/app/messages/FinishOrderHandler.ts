@@ -18,7 +18,7 @@ export const FinishOrderHandler = {
       );
     }
 
-    obj.status = 'confirma-dados';
+    obj.status = 'confirma-dados-pedido';
     await OrderHandlerCache.setOder('order:' + msg.from, JSON.stringify(obj));
 
     const items_to_print = obj.items.map((item, index) => {
@@ -34,11 +34,11 @@ export const FinishOrderHandler = {
      * quando os botoes funcionarem: primeiro dar um send message com os dados e depois enviar um botão de confirmação
      */
     return msg.reply(`
-    \t\t\t\t*DADOS DO PEDIDO*
+    \n*DADOS DO PEDIDO*
 
     \n*Cliente:*
       nome: ${obj.name}
-      número de Contato: ${obj.number}
+      número de contato: ${obj.number}
 
     \n*Carrinho:*${items_to_print}
     \nTotal da Compra: *${HelperCurrency.priceToString(Number(obj.total))}*
