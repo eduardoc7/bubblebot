@@ -4,6 +4,7 @@ import type { IOrder } from '../interfaces/Order';
 
 export default class OrderHandlerCache {
   static async setOder(Identifier: string, data: string): Promise<void> {
+    console.log('MY DATA IN SET ORDER: ', data);
     await redisClient.set(Identifier, data);
   }
 
@@ -52,7 +53,7 @@ export default class OrderHandlerCache {
       name: contact.pushname,
       number: contact.number,
       payment_method: '',
-      payment_status: 'vazio',
+      payment_status: '',
       total: order.total,
       items: order.products,
       location: {

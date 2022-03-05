@@ -1,6 +1,7 @@
 import type { Message } from 'whatsapp-web.js';
 import OrderHandlerCache from '../cache/OrderHandlerCache';
 import type { IOrder } from '../interfaces/Order';
+import { redisClient } from '../../services/redis';
 
 export const OrderMessageHandler = {
   async execute(msg: Message): Promise<Message> {
@@ -46,6 +47,28 @@ export const OrderMessageHandler = {
 
     obj.status = status;
     await OrderHandlerCache.setOder('order:' + msg.from, JSON.stringify(obj));
+
+    return true;
+  },
+
+  async setAddressLocationToOrder(
+    latitude: string,
+    longitude: string,
+    msg: Message,
+  ): Promise<boolean> {
+    let obj: IOrder;
+    try {
+      obj = await OrderHandlerCache.getOrderFromMessage(msg);
+    } catch (e) {
+      console.log(e);
+      return false;
+    }
+
+    obj.location.latitude = `${latitude}`;
+    obj.location.longitude = `${longitude}`;
+
+    const data = JSON.stringify(obj).replace(/\\"/g, '"');
+    await redisClient.set('order:' + msg.from, data);
 
     return true;
   },
