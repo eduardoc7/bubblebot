@@ -23,10 +23,9 @@ export const FinishOrderHandler = {
 
     const items_to_print = obj.items.map((item, index) => {
       return `
-      Produto (${index + 1}):
-        nome: ${item.name}
-        quantidade: ${item.quantity}
-        preço: *${HelperCurrency.priceToString(Number(item.price))}*\n`;
+      •${item.name}:
+        →Quantidade: ${item.quantity}
+        →Preço: *${HelperCurrency.priceToString(Number(item.price))}*\n`;
     });
 
     /**
@@ -35,14 +34,11 @@ export const FinishOrderHandler = {
      */
     return msg.reply(`
     \n*DADOS DO PEDIDO*
-
     \n*Cliente:*
-      nome: ${obj.name}
-      número de contato: ${obj.number}
-
+    •Nome: ${obj.name}
+    •Número de contato: ${obj.number}
     \n*Carrinho:*${items_to_print}
     \nTotal da Compra: *${HelperCurrency.priceToString(Number(obj.total))}*
-
     \n*Deseja confirmar o pedido?*
     `);
   },
