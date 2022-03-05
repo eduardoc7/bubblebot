@@ -29,9 +29,24 @@ export const OrderMessageHandler = {
     return true;
   },
 
-  async getStatusOrder(msg: Message) {
+  async getStatusOrder(msg: Message): Promise<string> {
     const obj: IOrder = await OrderHandlerCache.getOrderFromMessage(msg);
 
     return obj.status;
+  },
+
+  async updateStatusOder(msg: Message, status: string): Promise<boolean> {
+    let obj: IOrder;
+    try {
+      obj = await OrderHandlerCache.getOrderFromMessage(msg);
+    } catch (e) {
+      console.log(e);
+      return false;
+    }
+
+    obj.status = status;
+    await OrderHandlerCache.setOder('order:' + msg.from, JSON.stringify(obj));
+
+    return true;
   },
 };

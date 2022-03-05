@@ -4,6 +4,7 @@ import { OrderMessageHandler } from './OrderMessageHandler';
 import { FinishOrderHandler } from './FinishOrderHandler';
 import { AnyMessageHandler } from './AnyMessageHandler';
 import { ConfirmDataStatusHandler } from './ConfirmDataStatusHandler';
+import { OrderAddressHandler } from './OrderAddressHandler';
 
 export const MessageHandler = async (message: Message): Promise<void> => {
   console.log(message);
@@ -13,8 +14,9 @@ export const MessageHandler = async (message: Message): Promise<void> => {
     await messageDispatcher.register('order', OrderMessageHandler);
     await messageDispatcher.register('finalizar', FinishOrderHandler);
     await messageDispatcher.register('chat', AnyMessageHandler);
+    await messageDispatcher.register('endereco-dados', OrderAddressHandler);
     await messageDispatcher.register(
-      'confirma-dados-pedido',
+      'confirma-dados',
       ConfirmDataStatusHandler,
     );
 

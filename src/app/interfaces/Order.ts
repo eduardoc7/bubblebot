@@ -8,10 +8,9 @@ export interface IOrder {
   payment_status: string;
   total: string;
   items: Array<Product>;
-  address: {
-    cep: string;
-    street: string;
-    bairro: string;
+  location: {
+    latitude: string;
+    longitude: string;
   };
   chatId: string;
   status: string;

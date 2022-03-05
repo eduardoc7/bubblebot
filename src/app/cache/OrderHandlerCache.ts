@@ -55,11 +55,9 @@ export default class OrderHandlerCache {
       payment_status: 'vazio',
       total: order.total,
       items: order.products,
-      address: {
-        cep: '',
-        street: '',
-        bairro: '',
-        numero: '',
+      location: {
+        latitude: '',
+        longitude: '',
       },
       status: 'created',
       chatId: message._getChatId(),
@@ -68,6 +66,4 @@ export default class OrderHandlerCache {
 
     return JSON.stringify(data);
   }
-
-  // static async checkOrderStatus
 }

@@ -2,6 +2,7 @@ import type { Message } from 'whatsapp-web.js';
 import OrderHandlerCache from '../cache/OrderHandlerCache';
 import type { IOrder } from '../interfaces/Order';
 import HelperCurrency from '../utils/HelperCurrency';
+import { OrderMessageHandler } from './OrderMessageHandler';
 
 export const FinishOrderHandler = {
   async execute(msg: Message): Promise<Message> {
@@ -18,14 +19,16 @@ export const FinishOrderHandler = {
       );
     }
 
-    obj.status = 'confirma-dados-pedido';
-    await OrderHandlerCache.setOder('order:' + msg.from, JSON.stringify(obj));
+    const status_to_update = 'confirma-dados';
+    if (!OrderMessageHandler.updateStatusOder(msg, status_to_update)) {
+      console.log('Erro ao atualizar o status: ', status_to_update);
+    }
 
     const items_to_print = obj.items.map((item, index) => {
       return `
       •${item.name}:
-        →Quantidade: ${item.quantity}
-        →Preço: *${HelperCurrency.priceToString(Number(item.price))}*\n`;
+      →Quantidade: ${item.quantity}
+      →Preço: *${HelperCurrency.priceToString(Number(item.price))}*\n`;
     });
 
     /**

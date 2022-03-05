@@ -5,7 +5,11 @@ export const AnyMessageHandler = {
   async execute(msg: Message): Promise<Message> {
     const chat = await msg.getChat();
     await chat.sendStateTyping();
-
+    /**
+     * verifica qual o status e retorna uma mensagem, baseado nisso:
+     * exemplo:
+     * seu status é confirmar dados, por favor digite sim ou não para prosseguir
+     */
     return msg.reply(
       `Eita, que coisa. Não entendi :/ \nMas está tudo bem.
     \nPor esse canal do Whatsapp você pode:
