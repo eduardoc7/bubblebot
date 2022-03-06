@@ -1,10 +1,9 @@
 import { redisClient } from '../../services/redis';
 import { Order as Orderwpp, Message } from 'whatsapp-web.js';
-import type { IOrder } from '../interfaces/Order';
+import { IOrder, Convert } from '../interfaces/Order';
 
 export default class OrderHandlerCache {
   static async setOder(Identifier: string, data: string): Promise<void> {
-    console.log('MY DATA IN SET ORDER: ', data);
     await redisClient.set(Identifier, data);
   }
 
@@ -36,13 +35,10 @@ export default class OrderHandlerCache {
     // }
    */
   static async getOrderFromMessage(msg: Message): Promise<IOrder> {
-    const order = await redisClient.get('order:' + msg.from);
-    if (order === '') {
-      throw `Nenhum pedido encontrado para ${msg.from}`;
-    }
-    const objOrder: IOrder = JSON.parse(order || '');
+    const order_json = await redisClient.get('order:' + msg.from);
 
-    return objOrder;
+    const order_obj = Convert.toIOrder(order_json || '');
+    return order_obj;
   }
 
   static async prepareOrderToCache(message: Message, order: Orderwpp) {
@@ -51,15 +47,15 @@ export default class OrderHandlerCache {
     const data = {
       identifier: 'order:' + message.from,
       name: contact.pushname,
-      number: contact.number,
-      payment_method: '',
-      payment_status: '',
-      delivery_method: '',
+      contact_number: contact.number,
+      payment_method: 'vazio',
+      payment_status: 'vazio',
+      delivery_method: 'vazio',
       total: order.total,
       items: order.products,
       location: {
-        latitude: '',
-        longitude: '',
+        latitude: 'vazio',
+        longitude: 'vazio',
       },
       status: 'created',
       chatId: message._getChatId(),
