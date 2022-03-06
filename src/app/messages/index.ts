@@ -25,15 +25,12 @@ export const MessageHandler = async (message: Message): Promise<void> => {
     await messageDispatcher.register('pagamento-dados', OrderPaymentHandler);
 
     const isOrder = message.type == 'order';
-    console.log('ISORDER: ', isOrder);
 
     if (
       (await OrderMessageHandler.CheckExistsOrderToUser(message)) &&
       !isOrder
     ) {
       const order_status = await OrderMessageHandler.getStatusOrder(message);
-
-      console.log('STATUS PEDIDO: ', order_status);
 
       dispatchName = !message.body.startsWith('#')
         ? order_status

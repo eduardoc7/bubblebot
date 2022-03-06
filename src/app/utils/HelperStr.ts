@@ -3,6 +3,7 @@ export default class HelperStr {
     const msg_body_without_acentos = message_body
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '')
+      .replace(/\s/g, '')
       .toLowerCase();
 
     return msg_body_without_acentos;

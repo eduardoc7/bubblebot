@@ -1,10 +1,33 @@
 import type { Message } from 'whatsapp-web.js';
+import HelperStr from '../utils/HelperStr';
 import { OrderMessageHandler } from './OrderMessageHandler';
 
 export const AnyMessageHandler = {
   async execute(msg: Message): Promise<Message> {
     const chat = await msg.getChat();
     await chat.sendStateTyping();
+
+    const greeting_messages = [
+      'ola',
+      'oi',
+      'bomdia',
+      'boatarde',
+      'boanoite',
+      'hey',
+    ];
+    const greeting_message_to_reply = `
+    \nOiii. É um prazer tê-lo aqui. Seja muito bem vindo ao canal de atendimento e compras da ⭐ *Magic Bubbles* ⭐
+    \nNossos robôs trabalham *24 horas por dia* e *7 dias da semana*, para oferecer o melhor atendimento aos nossos clientes.
+    \nTodo o *processo de compra* é feito pelo Whatsapp de forma automatizada, basta enviar um *carrinho com os produtos* que deseja comprar e cuidaremos do resto pra você ;).
+    \nVocê também pode digitar *#duvidas* para saber mais.
+    `;
+
+    if (
+      greeting_messages.indexOf(HelperStr.formatMessageToCheck(msg.body)) > -1
+    ) {
+      return msg.reply(greeting_message_to_reply);
+    }
+
     /**
      * verifica qual o status e retorna uma mensagem, baseado nisso:
      * exemplo:

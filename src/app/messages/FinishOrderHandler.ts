@@ -36,7 +36,7 @@ export const FinishOrderHandler = {
      * quando os botoes funcionarem: primeiro dar um send message com os dados e depois enviar um botão de confirmação
      */
     return msg.reply(`
-    \n*DADOS DO PEDIDO*
+    *DADOS DO PEDIDO*
     \n*Cliente:*
     •Nome: ${obj.name}
     •Número de contato: ${obj.contact_number}
