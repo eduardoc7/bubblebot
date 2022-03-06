@@ -27,8 +27,7 @@ export const OrderDeliveryDataHandler = {
         'Obrigado. Seus dados de localização foram registrados com segurança.',
       );
 
-      return msg.reply(`
-    \nAgora precisamos preencher alguns dados de *pagamento*. 
+      return msg.reply(`Agora precisamos preencher alguns dados de *pagamento*. 
     \nNos diga o método de pagamento da sua preferência: *Cartão*, *Dinheiro* ou *Pix*?`);
     }
 

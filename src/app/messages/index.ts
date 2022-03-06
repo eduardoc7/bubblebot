@@ -14,7 +14,7 @@ export const MessageHandler = async (message: Message): Promise<void> => {
   let dispatchName = '';
   if (!message.fromMe) {
     await messageDispatcher.register('order', OrderMessageHandler);
-    await messageDispatcher.register('finalizar', FinishOrderHandler);
+    await messageDispatcher.register('ok', FinishOrderHandler);
     await messageDispatcher.register('chat', AnyMessageHandler);
     await messageDispatcher.register(
       'confirma-dados',

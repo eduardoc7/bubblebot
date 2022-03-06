@@ -15,9 +15,9 @@ export const OrderPaymentHandler = {
     const message_to_reply = `Oba!! Seu pedido foi enviado para produção, você será notificado quando estiver pronto para entrega ou retirada.
     \n\nAgradecemos com muita enfâse a preferência. ❤️
     \nNos siga nas redes sociais para não perder nenhuma novidade:
-    Instagram - https://www.instagram.com/magicbubblesart/
-    Facebook - https://www.facebook.com/magicbubbles
-    Whatsapp - bit.ly/36J59sd`;
+    👉Instagram - https://www.instagram.com/magicbubblesart/
+    👉Facebook - https://www.facebook.com/magicbubbles
+    👉Whatsapp - bit.ly/36J59sd`;
 
     if (HelperStr.formatMessageToCheck(msg.body) == 'pix') {
       const status_to_update = 'producao';

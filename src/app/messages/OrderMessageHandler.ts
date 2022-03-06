@@ -15,7 +15,7 @@ export const OrderMessageHandler = {
 
     return msg.reply(
       `Nós recebemos seu pedido com sucesso. ✅
-      \nSe deseja finalizar o pedido digite: *#finalizar*
+      \nSe deseja finalizar o pedido digite: *#ok*
       `,
     );
   },
@@ -67,6 +67,7 @@ export const OrderMessageHandler = {
 
     obj.location.latitude = `${latitude}`;
     obj.location.longitude = `${longitude}`;
+    obj.total = Number(obj.total) + 10000;
     obj.status = status;
 
     const data = JSON.stringify(obj).replace(/\\"/g, '"');

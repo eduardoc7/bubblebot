@@ -35,14 +35,13 @@ export const FinishOrderHandler = {
      * @todo
      * quando os botoes funcionarem: primeiro dar um send message com os dados e depois enviar um botão de confirmação
      */
-    return msg.reply(`
-    *DADOS DO PEDIDO*
-    \n*Cliente:*
-    •Nome: ${obj.name}
-    •Número de contato: ${obj.contact_number}
-    \n*Carrinho:*${items_to_print}
-    \nTotal da Compra: *${HelperCurrency.priceToString(Number(obj.total))}*
-    \n*Deseja confirmar o pedido?*
+    return msg.reply(`*DADOS DO PEDIDO*
+      \n*Cliente:*
+      •Nome: ${obj.name}
+      •Número de contato: ${obj.contact_number}
+      \n*Carrinho:*${items_to_print}
+      \nTotal da Compra: *${HelperCurrency.priceToString(Number(obj.total))}*
+      \n*Deseja confirmar o pedido?*
     `);
   },
 };
