@@ -12,8 +12,15 @@ export const OrderPaymentHandler = {
     const chat = await msg.getChat();
     await chat.sendStateTyping();
 
+    const message_to_reply = `Oba!! Seu pedido foi enviado para produção, você será notificado quando estiver pronto para entrega ou retirada.
+    \n\nAgradecemos com muita enfâse a preferência. ❤️
+    \nNos siga nas redes sociais para não perder nenhuma novidade:
+    Instagram - https://www.instagram.com/magicbubblesart/
+    Facebook - https://www.facebook.com/magicbubbles
+    Whatsapp - bit.ly/36J59sd`;
+
     if (HelperStr.formatMessageToCheck(msg.body) == 'pix') {
-      const status_to_update = 'pagamento-dados';
+      const status_to_update = 'producao';
       if (
         !OrderMessageHandler.setPaymentMethodToOrder(
           HelperStr.formatMessageToCheck(msg.body),
@@ -27,14 +34,12 @@ export const OrderPaymentHandler = {
         );
       }
 
-      return msg.reply(
-        `Oba!! Seu pedido foi enviado para produção, você será notificado quando estiver pronto para entrega ou retirada.`,
-      );
+      return msg.reply(message_to_reply);
     } else if (
       HelperStr.formatMessageToCheck(msg.body) == 'cartao' ||
       HelperStr.formatMessageToCheck(msg.body) == 'dinheiro'
     ) {
-      const status_to_update = 'pagamento-dados';
+      const status_to_update = 'producao';
       if (
         !OrderMessageHandler.setPaymentMethodToOrder(
           HelperStr.formatMessageToCheck(msg.body),
@@ -55,7 +60,7 @@ export const OrderPaymentHandler = {
           Number(obj.total),
         )}* no momento da entrega ou retirada.`,
       );
-      // falta dar um return sobre o produto ir pra produção
+      return msg.reply(message_to_reply);
     }
     return AnyMessageHandler.execute(msg);
   },
