@@ -72,4 +72,40 @@ export const OrderMessageHandler = {
 
     return true;
   },
+  async setPaymentMethodToOrder(
+    payment_method: string,
+    msg: Message,
+  ): Promise<boolean> {
+    let obj: IOrder;
+    try {
+      obj = await OrderHandlerCache.getOrderFromMessage(msg);
+    } catch (e) {
+      console.log(e);
+      return false;
+    }
+
+    obj.payment_method = payment_method;
+
+    await OrderHandlerCache.setOder('order' + msg.from, JSON.stringify(obj));
+
+    return true;
+  },
+  async setDeliveryMethodToOrder(
+    delivery_method: string,
+    msg: Message,
+  ): Promise<boolean> {
+    let obj: IOrder;
+    try {
+      obj = await OrderHandlerCache.getOrderFromMessage(msg);
+    } catch (e) {
+      console.log(e);
+      return false;
+    }
+
+    obj.delivery_method = delivery_method;
+
+    await OrderHandlerCache.setOder('order' + msg.from, JSON.stringify(obj));
+
+    return true;
+  },
 };

@@ -54,6 +54,7 @@ export default class OrderHandlerCache {
       number: contact.number,
       payment_method: '',
       payment_status: '',
+      delivery_method: '',
       total: order.total,
       items: order.products,
       location: {

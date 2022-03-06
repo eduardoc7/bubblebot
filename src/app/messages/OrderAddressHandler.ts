@@ -14,6 +14,17 @@ export const OrderAddressHandler = {
       if (!OrderMessageHandler.updateStatusOder(msg, status_to_update)) {
         console.log('Erro ao atualizar o status: ', status_to_update);
       }
+      if (
+        !OrderMessageHandler.setDeliveryMethodToOrder(
+          HelperStr.formatMessageToCheck(msg.body),
+          msg,
+        )
+      ) {
+        console.log(
+          'Erro ao setar o método de entrega: ',
+          HelperStr.formatMessageToCheck(msg.body),
+        );
+      }
 
       client.sendMessage(
         msg._getChatId(),
@@ -38,7 +49,10 @@ export const OrderAddressHandler = {
         msg._getChatId(),
         `Certo! Você será notificado assim que a sua encomenda estiver pronta para retirada :).`,
       );
-      // return para preencher dados do pagamento
+
+      return msg.reply(`
+      \nAgora precisamos preencher alguns dados de *pagamento*. 
+      \nNos diga o método de pagamento da sua preferência: *Cartão*, *Dinheiro* ou *Pix*?`);
     }
 
     return AnyMessageHandler.execute(msg);

@@ -6,6 +6,7 @@ export interface IOrder {
   number: number;
   payment_method: string;
   payment_status: string;
+  delivery_method: string;
   total: string;
   items: Array<Product>;
   location: {
