@@ -1,6 +1,6 @@
 import type { Message } from 'whatsapp-web.js';
 import OrderHandlerCache from '../cache/OrderHandlerCache';
-import type { IOrder } from '../interfaces/Order';
+import { IOrder, Convert } from '../interfaces/Order';
 import { redisClient } from '../../services/redis';
 
 export const OrderMessageHandler = {
@@ -54,6 +54,7 @@ export const OrderMessageHandler = {
   async setAddressLocationToOrder(
     latitude: string,
     longitude: string,
+    status: string,
     msg: Message,
   ): Promise<boolean> {
     let obj: IOrder;
@@ -66,6 +67,7 @@ export const OrderMessageHandler = {
 
     obj.location.latitude = `${latitude}`;
     obj.location.longitude = `${longitude}`;
+    obj.status = status;
 
     const data = JSON.stringify(obj).replace(/\\"/g, '"');
     await redisClient.set('order:' + msg.from, data);
@@ -74,6 +76,7 @@ export const OrderMessageHandler = {
   },
   async setPaymentMethodToOrder(
     payment_method: string,
+    status: string,
     msg: Message,
   ): Promise<boolean> {
     let obj: IOrder;
@@ -85,13 +88,16 @@ export const OrderMessageHandler = {
     }
 
     obj.payment_method = payment_method;
+    obj.status = status;
 
-    await OrderHandlerCache.setOder('order' + msg.from, JSON.stringify(obj));
+    const data = JSON.stringify(obj).replace(/\\"/g, '"');
+    await redisClient.set('order:' + msg.from, data);
 
     return true;
   },
   async setDeliveryMethodToOrder(
     delivery_method: string,
+    status: string,
     msg: Message,
   ): Promise<boolean> {
     let obj: IOrder;
@@ -103,8 +109,9 @@ export const OrderMessageHandler = {
     }
 
     obj.delivery_method = delivery_method;
+    obj.status = status;
 
-    await OrderHandlerCache.setOder('order' + msg.from, JSON.stringify(obj));
+    await OrderHandlerCache.setOder('order:' + msg.from, JSON.stringify(obj));
 
     return true;
   },

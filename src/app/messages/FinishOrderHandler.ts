@@ -39,7 +39,7 @@ export const FinishOrderHandler = {
     \n*DADOS DO PEDIDO*
     \n*Cliente:*
     •Nome: ${obj.name}
-    •Número de contato: ${obj.number}
+    •Número de contato: ${obj.contact_number}
     \n*Carrinho:*${items_to_print}
     \nTotal da Compra: *${HelperCurrency.priceToString(Number(obj.total))}*
     \n*Deseja confirmar o pedido?*

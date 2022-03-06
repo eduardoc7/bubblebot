@@ -6,6 +6,7 @@ import { AnyMessageHandler } from './AnyMessageHandler';
 import { ConfirmDataStatusHandler } from './ConfirmDataStatusHandler';
 import { OrderAddressHandler } from './OrderAddressHandler';
 import { OrderDeliveryDataHandler } from './OrderDeliveryDataHandler';
+import { OrderPaymentHandler } from './OrderPaymentHandler';
 
 export const MessageHandler = async (message: Message): Promise<void> => {
   console.log(message);
@@ -15,12 +16,13 @@ export const MessageHandler = async (message: Message): Promise<void> => {
     await messageDispatcher.register('order', OrderMessageHandler);
     await messageDispatcher.register('finalizar', FinishOrderHandler);
     await messageDispatcher.register('chat', AnyMessageHandler);
-    await messageDispatcher.register('endereco-dados', OrderAddressHandler);
-    await messageDispatcher.register('entrega-dados', OrderDeliveryDataHandler);
     await messageDispatcher.register(
       'confirma-dados',
       ConfirmDataStatusHandler,
     );
+    await messageDispatcher.register('endereco-dados', OrderAddressHandler);
+    await messageDispatcher.register('entrega-dados', OrderDeliveryDataHandler);
+    await messageDispatcher.register('pagamento-dados', OrderPaymentHandler);
 
     const isOrder = message.type == 'order';
     console.log('ISORDER: ', isOrder);

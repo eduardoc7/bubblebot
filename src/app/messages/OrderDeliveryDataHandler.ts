@@ -9,15 +9,13 @@ export const OrderDeliveryDataHandler = {
     await chat.sendStateTyping();
 
     if (msg.type == 'location') {
-      const status_to_update = 'pagamentos-dados';
-      if (!OrderMessageHandler.updateStatusOder(msg, status_to_update)) {
-        console.log('Erro ao atualizar o status: ', status_to_update);
-      }
+      const status_to_update = 'pagamento-dados';
 
       if (
         !OrderMessageHandler.setAddressLocationToOrder(
           msg.location.latitude,
           msg.location.longitude,
+          status_to_update,
           msg,
         )
       ) {

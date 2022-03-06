@@ -11,12 +11,10 @@ export const OrderAddressHandler = {
 
     if (HelperStr.formatMessageToCheck(msg.body) == 'entrega') {
       const status_to_update = 'entrega-dados';
-      if (!OrderMessageHandler.updateStatusOder(msg, status_to_update)) {
-        console.log('Erro ao atualizar o status: ', status_to_update);
-      }
       if (
         !OrderMessageHandler.setDeliveryMethodToOrder(
           HelperStr.formatMessageToCheck(msg.body),
+          status_to_update,
           msg,
         )
       ) {
@@ -41,8 +39,17 @@ export const OrderAddressHandler = {
       `);
     } else if (HelperStr.formatMessageToCheck(msg.body) == 'retirada') {
       const status_to_update = 'pagamento-dados';
-      if (!OrderMessageHandler.updateStatusOder(msg, status_to_update)) {
-        console.log('Erro ao atualizar o status: ', status_to_update);
+      if (
+        !OrderMessageHandler.setDeliveryMethodToOrder(
+          HelperStr.formatMessageToCheck(msg.body),
+          status_to_update,
+          msg,
+        )
+      ) {
+        console.log(
+          'Erro ao setar o método de entrega: ',
+          HelperStr.formatMessageToCheck(msg.body),
+        );
       }
 
       client.sendMessage(
