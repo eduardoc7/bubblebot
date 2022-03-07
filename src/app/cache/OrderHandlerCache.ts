@@ -47,7 +47,7 @@ export default class OrderHandlerCache {
     const data = {
       identifier: 'order:' + message.from,
       name: contact.pushname,
-      contact_number: contact.number,
+      contact_number: await contact.getFormattedNumber(),
       payment_method: 'vazio',
       payment_status: 'vazio',
       delivery_method: 'vazio',

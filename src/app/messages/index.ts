@@ -1,12 +1,15 @@
 import { Message } from 'whatsapp-web.js';
 import { messageDispatcher } from '../utils/MessageDispatcher';
 import { OrderMessageHandler } from './OrderMessageHandler';
-import { FinishOrderCommandHandler } from './commands/FinishOrderCommandHandler';
 import { AnyMessageHandler } from './AnyMessageHandler';
 import { ConfirmDataStatusHandler } from './ConfirmDataStatusHandler';
 import { OrderAddressHandler } from './OrderAddressHandler';
 import { OrderDeliveryDataHandler } from './OrderDeliveryDataHandler';
 import { OrderPaymentHandler } from './OrderPaymentHandler';
+import { OrderProductionStatusHandler } from './OrderProductionStatusHandler';
+import { CreatedOrderStatusHandler } from './CreatedOrderStatusHandler';
+
+import { FinishOrderCommandHandler } from './commands/FinishOrderCommandHandler';
 import { DoubtCommandHandler } from './commands/DoubtCommandHandler';
 import { AboutBotCommandHandler } from './commands/AboutBotCommandHandler';
 import { CarTutorialCommandHandler } from './commands/CarTutorialCommandHandler';
@@ -33,6 +36,7 @@ export const MessageHandler = async (message: Message): Promise<void> => {
     await messageDispatcher.register('chat', AnyMessageHandler);
 
     // handlers by order status
+    await messageDispatcher.register('created', CreatedOrderStatusHandler);
     await messageDispatcher.register(
       'confirma-dados',
       ConfirmDataStatusHandler,
@@ -40,6 +44,7 @@ export const MessageHandler = async (message: Message): Promise<void> => {
     await messageDispatcher.register('endereco-dados', OrderAddressHandler);
     await messageDispatcher.register('entrega-dados', OrderDeliveryDataHandler);
     await messageDispatcher.register('pagamento-dados', OrderPaymentHandler);
+    await messageDispatcher.register('producao', OrderProductionStatusHandler);
 
     const isOrder = message.type == 'order';
 

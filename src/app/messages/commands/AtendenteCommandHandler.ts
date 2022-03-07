@@ -12,7 +12,7 @@ export const AtendenteCommandHandler = {
 
     const message_to_reply = `EIIIII. A Magic Bubbles precisa de um atendente no Whatsapp Business. Vai deixar esperando?
     \nNome de quem solicitou: ${contact.pushname}
-    \nNúmero: ${contact.getFormattedNumber()}
+    \nNúmero: ${await contact.getFormattedNumber()}
     \nCom a mensagem: ${msg.body}`;
 
     return await client.sendMessage('554184510719@c.us', message_to_reply);
