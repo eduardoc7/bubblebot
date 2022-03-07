@@ -12,6 +12,7 @@ import { AboutBotCommandHandler } from './commands/AboutBotCommandHandler';
 import { CarTutorialCommandHandler } from './commands/CarTutorialCommandHandler';
 import { InfoOrderCommandHandler } from './commands/InfoOrderCommandHandler';
 import { CancelOrderCommandHandler } from './commands/CancelOrderCommandHandler';
+import { AtendenteCommandHandler } from './commands/AtendenteCommandHandler';
 
 export const MessageHandler = async (message: Message): Promise<void> => {
   console.log(message);
@@ -25,6 +26,7 @@ export const MessageHandler = async (message: Message): Promise<void> => {
     await messageDispatcher.register('car', CarTutorialCommandHandler);
     await messageDispatcher.register('ver', InfoOrderCommandHandler);
     await messageDispatcher.register('cancelar', CancelOrderCommandHandler);
+    await messageDispatcher.register('atendente', AtendenteCommandHandler);
 
     // handlers by messages types
     await messageDispatcher.register('order', OrderMessageHandler);
