@@ -1,21 +1,34 @@
 import { Message } from 'whatsapp-web.js';
 import { messageDispatcher } from '../utils/MessageDispatcher';
 import { OrderMessageHandler } from './OrderMessageHandler';
-import { FinishOrderHandler } from './FinishOrderHandler';
+import { FinishOrderCommandHandler } from './commands/FinishOrderCommandHandler';
 import { AnyMessageHandler } from './AnyMessageHandler';
 import { ConfirmDataStatusHandler } from './ConfirmDataStatusHandler';
 import { OrderAddressHandler } from './OrderAddressHandler';
 import { OrderDeliveryDataHandler } from './OrderDeliveryDataHandler';
 import { OrderPaymentHandler } from './OrderPaymentHandler';
+import { DoubtCommandHandler } from './commands/DoubtCommandHandler';
+import { AboutBotCommandHandler } from './commands/AboutBotCommandHandler';
+import { CarTutorialCommandHandler } from './commands/CarTutorialCommandHandler';
 
 export const MessageHandler = async (message: Message): Promise<void> => {
   console.log(message);
 
   let dispatchName = '';
   if (!message.fromMe) {
+    // handlers by commands
+    await messageDispatcher.register('ok', FinishOrderCommandHandler);
+    await messageDispatcher.register('duvidas', DoubtCommandHandler);
+    await messageDispatcher.register('bot', AboutBotCommandHandler);
+    await messageDispatcher.register('car', CarTutorialCommandHandler);
+    await messageDispatcher.register('ver', CarTutorialCommandHandler);
+    await messageDispatcher.register('cancelar', CarTutorialCommandHandler);
+
+    // handlers by messages types
     await messageDispatcher.register('order', OrderMessageHandler);
-    await messageDispatcher.register('ok', FinishOrderHandler);
     await messageDispatcher.register('chat', AnyMessageHandler);
+
+    // handlers by order status
     await messageDispatcher.register(
       'confirma-dados',
       ConfirmDataStatusHandler,

@@ -24,7 +24,6 @@ export const OrderMessageHandler = {
     try {
       const obj: IOrder = await OrderHandlerCache.getOrderFromMessage(msg);
     } catch (e) {
-      console.log(e);
       return false;
     }
     return true;
