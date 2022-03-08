@@ -16,10 +16,6 @@ import OrderHandlerCache from '../cache/OrderHandlerCache';
 
 export const AnyMessageHandler = {
   async execute(msg: Message): Promise<Message> {
-    console.log(
-      'STATUS ATENDIMENTO: ',
-      await OrderHandlerCache.checkIfIsAtendimento(msg),
-    );
     if (await OrderHandlerCache.checkIfIsAtendimento(msg)) {
       return msg;
     }

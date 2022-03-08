@@ -8,7 +8,7 @@ export const DoneAtendimentoHandler = {
 
     if (msg.from != '554184510719@c.us') {
       return msg.reply(
-        'Desculpe! Você não tem permissão para usar esse comando.',
+        'Desculpe! Você não tem permissão para usar esse comando. ❌',
       );
     }
 
@@ -16,7 +16,7 @@ export const DoneAtendimentoHandler = {
     const atendido = splited_body[1];
     if (atendido === undefined) {
       return msg.reply(
-        'Para encerrar um atendimento, por favor digite *#encerrar <nome de quem solicitou>*',
+        'Para encerrar um atendimento, por favor digite *#encerrar <nome de quem solicitou>* ❌',
       );
     }
 
@@ -26,9 +26,9 @@ export const DoneAtendimentoHandler = {
         atendido.toLowerCase(),
       ))
     ) {
-      return msg.reply('Nenhum atendimento encontrado!');
+      return msg.reply('Nenhum atendimento encontrado! ❌');
     }
 
-    return msg.reply('Atendimento encerrado com sucesso!');
+    return msg.reply('Atendimento encerrado com sucesso ✅');
   },
 };

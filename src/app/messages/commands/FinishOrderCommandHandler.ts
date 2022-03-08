@@ -15,7 +15,7 @@ export const FinishOrderCommandHandler = {
     } catch (e) {
       console.log(e);
       return msg.reply(
-        'Ops! Nenhum pedido seu foi encontrado para finalização.',
+        'Ops! Nenhum pedido seu foi encontrado para finalização. ❌',
       );
     }
 
