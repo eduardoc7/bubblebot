@@ -41,6 +41,35 @@ export default class OrderHandlerCache {
     return order_obj;
   }
 
+  static async checkIfIsAtendimento(msg: Message): Promise<boolean> {
+    const IsAtendimento = await redisClient.get('atendimento:' + msg.from);
+    if (IsAtendimento == null) {
+      return false;
+    }
+    return Boolean(IsAtendimento);
+  }
+
+  static async setAtendimentoToFinish(
+    msg: Message,
+    nome_atendido: string,
+  ): Promise<boolean> {
+    const atendimento = await redisClient.get(
+      `atendimento:${msg.from}:${nome_atendido}`,
+    );
+    if (atendimento == null) {
+      return false;
+    }
+    const atendimento_json = JSON.parse(atendimento || '');
+
+    const atendido = atendimento_json.atendido;
+    const atendente = atendimento_json.atendente;
+
+    await redisClient.del('atendimento:' + atendido);
+    await redisClient.del('atendimento:' + atendente);
+
+    return true;
+  }
+
   static async prepareOrderToCache(message: Message, order: Orderwpp) {
     const contact = await message.getContact();
 

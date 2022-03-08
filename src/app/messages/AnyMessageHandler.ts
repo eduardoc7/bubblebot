@@ -12,9 +12,18 @@ import {
   confirm_delivery_data,
   confirm_payment_data,
 } from '../utils/ReturnsMessages';
+import OrderHandlerCache from '../cache/OrderHandlerCache';
 
 export const AnyMessageHandler = {
   async execute(msg: Message): Promise<Message> {
+    console.log(
+      'STATUS ATENDIMENTO: ',
+      await OrderHandlerCache.checkIfIsAtendimento(msg),
+    );
+    if (await OrderHandlerCache.checkIfIsAtendimento(msg)) {
+      return msg;
+    }
+
     const chat = await msg.getChat();
     await chat.sendStateTyping();
 
@@ -31,7 +40,7 @@ export const AnyMessageHandler = {
 
     if (await OrderMessageHandler.CheckExistsOrderToUser(msg)) {
       const order_status = await OrderMessageHandler.getStatusOrder(msg);
-      console.log(order_status);
+
       switch (order_status) {
         case 'created':
           return msg.reply(created_status_message);

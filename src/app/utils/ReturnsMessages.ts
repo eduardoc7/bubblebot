@@ -28,7 +28,8 @@ const confirm_payment_data = `Você está na última etapa para finalização do
 const production_status_message = `Opa, legal 🥳🥳. Verifiquei aqui e vi que você tem um pedido sendo preparado com muito cuidado pela nossa produção. 🧰
 \nVocê será *notificado* quando ele estiver pronto para entrega ou retirada.
 \nPara visualizar seu pedido digite: *#ver*
-Para saber mais digite: *#duvidas*`;
+\nPara gerar um novo pedido nos envie outro carrinho (você pode fazer isso quantas vezes quiser :>): *#car*
+\n\nPara saber mais digite: *#duvidas*`;
 
 const last_option_message = `Eita, que coisa. Não entendi :/ \nMas está tudo bem.
 \n\nVocê pode digitar *#duvidas* para saber mais informações sobre nós.`;
