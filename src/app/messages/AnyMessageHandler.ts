@@ -11,6 +11,7 @@ import {
   confirm_address_data,
   confirm_delivery_data,
   confirm_payment_data,
+  confirm_bairro_data,
 } from '../utils/ReturnsMessages';
 import OrderHandlerCache from '../cache/OrderHandlerCache';
 
@@ -44,6 +45,9 @@ export const AnyMessageHandler = {
           return msg.reply(confirm_data_status);
         case 'endereco-dados':
           return msg.reply(confirm_address_data);
+        case 'taxa-entrega-dados':
+          console.log('OIIIIIII');
+          return msg.reply(confirm_bairro_data);
         case 'entrega-dados':
           return msg.reply(confirm_delivery_data);
         case 'pagamento-dados':

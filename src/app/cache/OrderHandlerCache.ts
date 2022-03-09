@@ -85,6 +85,7 @@ export default class OrderHandlerCache {
       location: {
         latitude: 'vazio',
         longitude: 'vazio',
+        bairro: 'vazio',
       },
       status: 'created',
       chatId: message._getChatId(),

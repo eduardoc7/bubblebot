@@ -10,7 +10,7 @@ export const OrderAddressHandler = {
     await chat.sendStateTyping();
 
     if (HelperStr.formatMessageToCheck(msg.body) == 'entrega') {
-      const status_to_update = 'entrega-dados';
+      const status_to_update = 'taxa-entrega-dados';
       if (
         !OrderMessageHandler.setDeliveryMethodToOrder(
           HelperStr.formatMessageToCheck(msg.body),
@@ -26,16 +26,18 @@ export const OrderAddressHandler = {
 
       client.sendMessage(
         msg._getChatId(),
-        `Certo! Enviaremos sua encomenda com segurança dentro do prazo de entrega no conforto da sua casa. 
-        \nCom uma taxa de apenas *R$ 10,00* para Pontal do Paraná - PR`,
+        `Certo! Enviaremos sua encomenda com segurança dentro do prazo de entrega no conforto da sua casa.`,
       );
 
-      return msg.reply(`Precisamos que você nos envie a sua *localização*
-      \nPara isso siga alguns pequenos passos:
-      \n1. Verifique se o serviço de localização está *ativo* no seu celular
-      \n2. Clique no ícone 🔗 acima do teclado
-      \n3. Clique em localização
-      \n4. E por fim clique em *Localização atual* (localizado abaixo do titúlo *locais próximos*)
+      return msg.reply(`Agora precisamos que você selecione o seu balneário *digitando entre 1 e 5*
+      \n\n*Balneários:*
+      \n1. Shangrila - taxa: *R$ 5,00*
+      \n2. Ipanema - taxa: *R$ 8,00*
+      \n3. Pontal do Sul - taxa: *R$ 10,00*
+      \n4. Santa Terezinha - taxa: *R$ 12,00*
+      \n5. Praia de Leste - taxa: *R$ 15,00*
+      \nMarque aquele que se localiza mais *próximo do seu balneário*
+      \n\nVocê também pode digitar *#duvidas* para saber mais
       `);
     } else if (HelperStr.formatMessageToCheck(msg.body) == 'retirada') {
       const status_to_update = 'pagamento-dados';

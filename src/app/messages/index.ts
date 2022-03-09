@@ -8,6 +8,7 @@ import { OrderDeliveryDataHandler } from './OrderDeliveryDataHandler';
 import { OrderPaymentHandler } from './OrderPaymentHandler';
 import { OrderProductionStatusHandler } from './OrderProductionStatusHandler';
 import { CreatedOrderStatusHandler } from './CreatedOrderStatusHandler';
+import { OrderTaxaDeliveryHandler } from './OrderTaxaDeliveryHandler';
 
 import { FinishOrderCommandHandler } from './commands/FinishOrderCommandHandler';
 import { DoubtCommandHandler } from './commands/DoubtCommandHandler';
@@ -45,6 +46,10 @@ export const MessageHandler = async (message: Message): Promise<void> => {
     );
     await messageDispatcher.register('endereco-dados', OrderAddressHandler);
     await messageDispatcher.register('entrega-dados', OrderDeliveryDataHandler);
+    await messageDispatcher.register(
+      'taxa-entrega-dados',
+      OrderTaxaDeliveryHandler,
+    );
     await messageDispatcher.register('pagamento-dados', OrderPaymentHandler);
     await messageDispatcher.register('producao', OrderProductionStatusHandler);
 

@@ -33,6 +33,7 @@ export const InfoOrderCommandHandler = {
     \n*Carrinho:*${items_to_print}
     *Dados de entrega:*
     •Forma de entrega: ${obj.delivery_method}
+    •Balneário de entrega: ${obj.location.bairro}
     \n*Dados de pagamento:*
     •Forma de pagamento: ${obj.payment_method}
     •Status do pagamento: ${obj.payment_status}

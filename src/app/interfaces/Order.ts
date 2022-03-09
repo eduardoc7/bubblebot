@@ -27,6 +27,7 @@ export interface IOrder {
 export interface Location {
   latitude: string;
   longitude: string;
+  bairro: string;
 }
 
 // Converts JSON strings to/from your types
@@ -222,6 +223,7 @@ const typeMap: any = {
     [
       { json: 'latitude', js: 'latitude', typ: '' },
       { json: 'longitude', js: 'longitude', typ: '' },
+      { json: 'bairro', js: 'bairro', typ: '' },
     ],
     false,
   ),

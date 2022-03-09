@@ -66,7 +66,60 @@ export const OrderMessageHandler = {
 
     obj.location.latitude = `${latitude}`;
     obj.location.longitude = `${longitude}`;
-    obj.total = Number(obj.total) + 10000;
+    obj.status = status;
+
+    const data = JSON.stringify(obj).replace(/\\"/g, '"');
+    await redisClient.set('order:' + msg.from, data);
+
+    return true;
+  },
+  async setBairroToOrder(
+    status: string,
+    taxa_entrega: number,
+    msg: Message,
+  ): Promise<boolean> {
+    let obj: IOrder;
+    try {
+      obj = await OrderHandlerCache.getOrderFromMessage(msg);
+    } catch (e) {
+      console.log(e);
+      return false;
+    }
+
+    // 1. Shangrila - taxa: *R$ 5,00*
+    // 2. Ipanema - taxa: *R$ 8,00*
+    // 3. Pontal do Sul - taxa: *R$ 10,00*
+    // 4. Santa Terezinha - taxa: *R$ 12,00*
+    // 5. Praia de Leste - taxa: *R$ 15,00*
+    let taxa_entrega_to_pay;
+    let bairro_name;
+    switch (taxa_entrega) {
+      case 1:
+        bairro_name = 'shangrila';
+        taxa_entrega_to_pay = 5000;
+        break;
+      case 2:
+        bairro_name = 'ipanema';
+        taxa_entrega_to_pay = 8000;
+        break;
+      case 3:
+        bairro_name = 'pontal do sul';
+        taxa_entrega_to_pay = 10000;
+        break;
+      case 4:
+        bairro_name = 'santa terezinha';
+        taxa_entrega_to_pay = 12000;
+        break;
+      case 5:
+        bairro_name = 'praia de leste';
+        taxa_entrega_to_pay = 15000;
+        break;
+      default:
+        taxa_entrega_to_pay = 15000;
+    }
+
+    obj.location.bairro = bairro_name || '';
+    obj.total = Number(obj.total) + taxa_entrega_to_pay;
     obj.status = status;
 
     const data = JSON.stringify(obj).replace(/\\"/g, '"');
