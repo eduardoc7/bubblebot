@@ -21,7 +21,7 @@ export const AtendenteCommandHandler = {
       atendente: '554184510719@c.us',
     };
 
-    redisClient.set('atendimento:' + msg.from, 'true');
+    redisClient.set('atendimento:' + msg.from, 'true', { EX: 600 });
     redisClient.set('atendimento:554184510719@c.us', 'true');
     redisClient.set(
       'atendimento:554184510719@c.us:' + contact.pushname.toLowerCase(),
