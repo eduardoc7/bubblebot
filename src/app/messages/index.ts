@@ -45,11 +45,8 @@ export const MessageHandler = async (message: Message): Promise<void> => {
       ConfirmDataStatusHandler,
     );
     await messageDispatcher.register('endereco-dados', OrderAddressHandler);
+    await messageDispatcher.register('taxa-entrega', OrderTaxaDeliveryHandler);
     await messageDispatcher.register('entrega-dados', OrderDeliveryDataHandler);
-    await messageDispatcher.register(
-      'taxa-entrega-dados',
-      OrderTaxaDeliveryHandler,
-    );
     await messageDispatcher.register('pagamento-dados', OrderPaymentHandler);
     await messageDispatcher.register('producao', OrderProductionStatusHandler);
 

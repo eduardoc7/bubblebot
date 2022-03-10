@@ -45,7 +45,7 @@ export const AnyMessageHandler = {
           return msg.reply(confirm_data_status);
         case 'endereco-dados':
           return msg.reply(confirm_address_data);
-        case 'taxa-entrega-dados':
+        case 'taxa-entrega':
           console.log('OIIIIIII');
           return msg.reply(confirm_bairro_data);
         case 'entrega-dados':

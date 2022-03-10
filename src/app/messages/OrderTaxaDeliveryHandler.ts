@@ -8,9 +8,7 @@ export const OrderTaxaDeliveryHandler = {
     const chat = await msg.getChat();
     await chat.sendStateTyping();
 
-    console.log('fora DO IF');
     if (Number(msg.body) != 0 && Number(msg.body) <= 5) {
-      console.log('dentro do IF');
       const status_to_update = 'entrega-dados';
 
       if (
@@ -36,8 +34,6 @@ export const OrderTaxaDeliveryHandler = {
       \n4. E por fim clique em *Localização atual* (localizado abaixo do titúlo *locais próximos*)
       `);
     }
-
-    console.log('FORA RETURN');
 
     return AnyMessageHandler.execute(msg);
   },

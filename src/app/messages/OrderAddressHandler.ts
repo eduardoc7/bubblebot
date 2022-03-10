@@ -10,7 +10,7 @@ export const OrderAddressHandler = {
     await chat.sendStateTyping();
 
     if (HelperStr.formatMessageToCheck(msg.body) == 'entrega') {
-      const status_to_update = 'taxa-entrega-dados';
+      const status_to_update = 'taxa-entrega';
       if (
         !OrderMessageHandler.setDeliveryMethodToOrder(
           HelperStr.formatMessageToCheck(msg.body),
