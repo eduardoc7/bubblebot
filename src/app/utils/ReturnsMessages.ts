@@ -35,6 +35,14 @@ const production_status_message = `Opa, legal 🥳🥳. Verifiquei aqui e vi que
 \nPara gerar um novo pedido nos envie outro carrinho (você pode fazer isso quantas vezes quiser :>): *#car*
 \n\nPara saber mais digite: *#duvidas*`;
 
+const production_message = `Oba!! Seu pedido foi enviado para produção, você será notificado quando estiver pronto para entrega ou retirada.
+\n\nAgradecemos com muita enfâse a preferência. ❤️
+\nNos siga nas redes sociais para não perder nenhuma novidade:
+👉Instagram - https://www.instagram.com/magicbubblesart/
+👉Facebook - https://www.facebook.com/magicbubbles
+👉Whatsapp - bit.ly/36J59sd
+\nCompartilhe!`;
+
 const last_option_message = `Eita, que coisa. Não entendi :/ \nMas está tudo bem.
 \n\nVocê pode digitar *#duvidas* para saber mais informações sobre nós.`;
 
@@ -49,4 +57,5 @@ export {
   confirm_delivery_data,
   confirm_payment_data,
   confirm_bairro_data,
+  production_message,
 };
