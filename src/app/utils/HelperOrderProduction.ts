@@ -33,7 +33,9 @@ export class HelperOrderProduction {
   ): Promise<any> {
     const message_to_notify = `Vamos trabalhar 🛠️⌛! Novo pedido encaminhado para a produção.\n
     N° do pedido: *${order.identifier}*
-    Valor total do pedido: *${order.total}*
+    Valor total do pedido: *${HelperCurrency.priceToString(
+      Number(order.total),
+    )}*
     \nDigite *#pedidos* para trazer uma análise dos pedidos atuais.`;
 
     await client.sendMessage(admin_chat_id, message_to_notify);

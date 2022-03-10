@@ -73,8 +73,14 @@ export default class OrderHandlerCache {
   static async prepareOrderToCache(message: Message, order: Orderwpp) {
     const contact = await message.getContact();
 
+    const identifier = this.createIdentifierNameToOrder(
+      contact.pushname,
+      order.total,
+      await contact.getFormattedNumber(),
+    );
+
     const data = {
-      identifier: message.orderId,
+      identifier: identifier,
       name: contact.pushname,
       contact_number: await contact.getFormattedNumber(),
       payment_method: 'vazio',
@@ -93,5 +99,17 @@ export default class OrderHandlerCache {
     };
 
     return JSON.stringify(data);
+  }
+
+  static createIdentifierNameToOrder(
+    contact_name: string,
+    order_total: string,
+    number: string,
+  ): string {
+    const name_formated = contact_name.substring(0, 3).toUpperCase();
+    const total_formated = order_total;
+    const last_numbers = number.split('-').pop();
+
+    return `${name_formated}${total_formated}${last_numbers}`;
   }
 }
