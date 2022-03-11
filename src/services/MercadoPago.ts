@@ -7,6 +7,7 @@ import {
 } from '../app/interfaces/QrCodeRequest';
 import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
+import QRCode from 'qrcode';
 
 type MercadoPagoProps = {
   order_data: IOrder;
@@ -48,6 +49,16 @@ export class MercadoPago {
       });
 
     return res;
+  }
+  public async getImgFromQrCodeData(qrcode_data: string): Promise<string> {
+    let qrcode_base64;
+    try {
+      qrcode_base64 = await QRCode.toDataURL(qrcode_data);
+    } catch (err) {
+      console.error(err);
+    }
+
+    return qrcode_base64 || '';
   }
 
   private prepareJsonToSendRequest(order: IOrder): IQrCodeRequest {
