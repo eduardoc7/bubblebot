@@ -8,6 +8,8 @@ import HelperCurrency from '../utils/HelperCurrency';
 import HelperStr from '../utils/HelperStr';
 import { production_message } from '../utils/ReturnsMessages';
 import { HelperOrderProduction } from '../utils/HelperOrderProduction';
+import { MercadoPago } from '../../services/MercadoPago';
+import { IResponse } from '../interfaces/QrCodeRequest';
 
 export const OrderPaymentHandler = {
   async execute(msg: Message): Promise<Message> {
@@ -15,21 +17,27 @@ export const OrderPaymentHandler = {
     await chat.sendStateTyping();
 
     if (HelperStr.formatMessageToCheck(msg.body) == 'pix') {
-      const status_to_update = 'producao';
-      if (
-        !OrderMessageHandler.setPaymentMethodToOrder(
-          HelperStr.formatMessageToCheck(msg.body),
-          status_to_update,
-          msg,
-        )
-      ) {
-        console.log(
-          'Erro ao setar o método de pagamento: ',
-          HelperStr.formatMessageToCheck(msg.body),
-        );
-      }
+      // const status_to_update = 'producao';
+      // if (
+      //   !OrderMessageHandler.setPaymentMethodToOrder(
+      //     HelperStr.formatMessageToCheck(msg.body),
+      //     status_to_update,
+      //     msg,
+      //   )
+      // ) {
+      //   console.log(
+      //     'Erro ao setar o método de pagamento: ',
+      //     HelperStr.formatMessageToCheck(msg.body),
+      //   );
+      // }
+      const obj: IOrder = await OrderHandlerCache.getOrderFromMessage(msg);
 
-      HelperOrderProduction.create({ message_from: msg.from });
+      const MercadoPagoService = MercadoPago.create({ order_data: obj });
+      const { data }: IResponse = await MercadoPagoService.generateQrCode();
+
+      console.log('QRCODE DATA: ', data);
+
+      // HelperOrderProduction.create({ message_from: msg.from });
       return msg.reply(production_message);
     } else if (
       HelperStr.formatMessageToCheck(msg.body) == 'cartao' ||

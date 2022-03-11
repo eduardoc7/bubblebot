@@ -1,4 +1,17 @@
-const greeting_messages = ['ola', 'oi', 'dia', 'tarde', 'noite', 'hey', 'bem'];
+const greeting_messages = [
+  'ola',
+  'oi',
+  'oii',
+  'oiii',
+  'oiiii',
+  'oiiiii',
+  'oiiiiii',
+  'dia',
+  'tarde',
+  'noite',
+  'hey',
+  'bem',
+];
 
 const greeting_message_to_reply = `Oiii. É um prazer tê-lo aqui. Seja muito bem vindo ao canal de atendimento e compras da ⭐ *Magic Bubbles* ⭐
   \nNossos robôs trabalham *24 horas por dia* e *7 dias da semana*, para oferecer o melhor atendimento aos nossos clientes.

@@ -5,6 +5,8 @@
   "type": "module",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.26.1",
+    "dotenv": "^16.0.0",
     "nubank-api": "^1.1.0",
     "qrcode-terminal": "^0.12.0",
     "redis": "^4.0.4",

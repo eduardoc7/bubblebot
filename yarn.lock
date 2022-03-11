@@ -283,6 +283,13 @@
   "resolved" "https://registry.npmjs.org/async/-/async-3.2.3.tgz"
   "version" "3.2.3"
 
+"axios@^0.26.1":
+  "integrity" "sha512-fPwcX4EvnSHuInCMItEhAGnaSEXRBjtzh9fOtsE6E1G6p7vl7edEeZe11QHf18+6+9gR5PbKV/sGKNaD8YaMeA=="
+  "resolved" "https://registry.npmjs.org/axios/-/axios-0.26.1.tgz"
+  "version" "0.26.1"
+  dependencies:
+    "follow-redirects" "^1.14.8"
+
 "axios@0.26.0":
   "integrity" "sha512-lKoGLMYtHvFrPVt3r+RBMp9nh34N0M8zEfCWqdWZx6phynIEhQqAdydpyBAAG211zlhX9Rgu08cOamy6XjE5Og=="
   "resolved" "https://registry.npmjs.org/axios/-/axios-0.26.0.tgz"
@@ -458,6 +465,11 @@
   "version" "3.0.0"
   dependencies:
     "esutils" "^2.0.2"
+
+"dotenv@^16.0.0":
+  "integrity" "sha512-qD9WU0MPM4SWLPJy/r2Be+2WgQj8plChsyrCNQzW/0WjvcJQiKQJ9mH3ZgB3fxbUUxgc/11ZJ0Fi5KiimWGz2Q=="
+  "resolved" "https://registry.npmjs.org/dotenv/-/dotenv-16.0.0.tgz"
+  "version" "16.0.0"
 
 "dynamic-dedupe@^0.3.0":
   "integrity" "sha1-BuRMIj9eTpTXjvnbI6ZRXOL5YqE="
@@ -1500,9 +1512,9 @@
   "version" "3.0.1"
 
 "whatsapp-web.js@^1.16.3":
-  "integrity" "sha512-nyh7EQYvgo66ulTMwOMjR/1IUoP/Oj2KLnAmiPScu8zTKnZyOwySqYiNyClgmXa80xQC/JezVx2in4Jf4nA7Ow=="
-  "resolved" "https://registry.npmjs.org/whatsapp-web.js/-/whatsapp-web.js-1.16.3.tgz"
-  "version" "1.16.3"
+  "integrity" "sha512-cN4ncwqnR3aMmltXtPRwQTfjwQGNmSFDnfaQ4pm3EpqbHWAzvxBlxaWFCWcZQnbUmPRvnVCEky1C9LvV+ePq3Q=="
+  "resolved" "https://registry.npmjs.org/whatsapp-web.js/-/whatsapp-web.js-1.16.4.tgz"
+  "version" "1.16.4"
   dependencies:
     "@pedroslopez/moduleraid" "^5.0.2"
     "fluent-ffmpeg" "^2.1.2"
