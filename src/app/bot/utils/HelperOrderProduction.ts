@@ -45,8 +45,6 @@ export class HelperOrderProduction {
   private async getOrderFromCache(message_from: string): Promise<IOrder> {
     const order_json = await redisClient.get('order:' + message_from);
 
-    console.log('JSON TO CONVERT HELPER> ', order_json);
-
     const order_obj = Convert.toIOrder(order_json || '');
     return order_obj;
   }
@@ -65,9 +63,11 @@ export class HelperOrderProduction {
     •Nome: ${order.name}
     •Número de contato: ${order.contact_number}
     \n*Carrinho:*${items_to_print}
-    *Dados de entrega:*
+    \n*Dados de entrega:*
     •Forma de entrega: ${order.delivery_method}
     •Balneário de entrega: ${order.location.bairro}
+    •Latitude: ${order.location.latitude}
+    •Longitude: ${order.location.longitude}
     \n*Dados de pagamento:*
     •Forma de pagamento: ${order.payment_method}
     •Status do pagamento: ${order.payment_status}
