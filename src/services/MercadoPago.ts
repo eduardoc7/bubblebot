@@ -87,10 +87,9 @@ export class MercadoPago {
   }
 
   private prepareJsonToSendRequest(order: IOrder): IQrCodeRequest {
-    const total_amount = Number(order.total) / 1000;
-
     const items: any = [];
     order.items.map((item, index) => {
+      const total_amount_items = (Number(item.price) / 1000) * item.quantity;
       items[index] = {
         title: item.name,
         quantity: item.quantity,
@@ -99,7 +98,7 @@ export class MercadoPago {
         sku_number: 'KS955RUR',
         category: `produto:${item.name}`,
         unit_measure: 'unit',
-        total_amount: total_amount,
+        total_amount: total_amount_items,
       };
     });
 
@@ -108,7 +107,7 @@ export class MercadoPago {
       description: `Pedido para ${order.name}`,
       title: `Venda para ${order.name}`,
       expiration_date: '2023-08-22T16:34:56.559-04:00',
-      total_amount: total_amount,
+      total_amount: Number(order.total) / 1000,
       notification_url: this.callback_url,
       items: items,
     };
