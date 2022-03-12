@@ -31,7 +31,7 @@ export const OrderPaymentHandler = {
         );
       }
       chat.sendMessage(
-        'Aguarde alguns instantes enquanto preparamos o seu QR Code para pagamento 🚀.',
+        'Aguarde alguns instantes enquanto preparamos o seu QR Code para pagamento 🚀',
       );
 
       const obj: IOrder = await OrderHandlerCache.getOrderFromMessage(msg);
@@ -46,6 +46,8 @@ export const OrderPaymentHandler = {
       const media = new MessageMedia('image/png', formated_img || '');
 
       if (media) {
+        await MercadoPagoService.saveQrCodeOnCache(data.qr_data, msg.from);
+
         await chat.sendMessage(media);
         await chat.sendMessage(
           `Você também pode usar o Pix copia e cola, copiando a mensagem abaixo e colocando no área Pix do seu banco ;).`,
@@ -57,9 +59,8 @@ export const OrderPaymentHandler = {
         );
       }
 
-      // HelperOrderProduction.create({ message_from: msg.from });
       return msg.reply(
-        `Obrigado. Pagamento via Pix é um facilitador. Aguardaremos a confirmação do pagamento para prosseguir.`,
+        `Agradecemos a sua escolha por Pix, isso nos ajuda a crescer. Aguardaremos a confirmação do pagamento para prosseguir.`,
       );
     } else if (
       HelperStr.formatMessageToCheck(msg.body) == 'cartao' ||

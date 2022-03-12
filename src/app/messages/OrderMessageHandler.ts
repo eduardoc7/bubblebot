@@ -1,6 +1,6 @@
 import type { Message } from 'whatsapp-web.js';
 import OrderHandlerCache from '../cache/OrderHandlerCache';
-import { IOrder, Convert } from '../interfaces/Order';
+import { IOrder } from '../interfaces/Order';
 import { redisClient } from '../../services/redis';
 
 export const OrderMessageHandler = {
@@ -24,6 +24,7 @@ export const OrderMessageHandler = {
     try {
       const obj: IOrder = await OrderHandlerCache.getOrderFromMessage(msg);
     } catch (e) {
+      console.log('error in CheckExistsOrderToUser: ', e);
       return false;
     }
     return true;
@@ -73,6 +74,7 @@ export const OrderMessageHandler = {
 
     return true;
   },
+
   async setBairroToOrder(
     status: string,
     taxa_entrega: number,
@@ -127,6 +129,7 @@ export const OrderMessageHandler = {
 
     return true;
   },
+
   async setPaymentMethodToOrder(
     payment_method: string,
     status: string,
@@ -141,6 +144,7 @@ export const OrderMessageHandler = {
     }
 
     obj.payment_method = payment_method;
+    obj.payment_status = 'pendente';
     obj.status = status;
 
     const data = JSON.stringify(obj).replace(/\\"/g, '"');

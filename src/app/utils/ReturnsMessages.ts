@@ -46,7 +46,10 @@ const production_status_message = `Opa, legal 🥳🥳. Verifiquei aqui e vi que
 \nVocê será *notificado* quando ele estiver pronto para entrega ou retirada.
 \nPara visualizar seu pedido digite: *#ver*
 \nPara gerar um novo pedido nos envie outro carrinho (você pode fazer isso quantas vezes quiser :>): *#car*
-\n\nPara saber mais digite: *#duvidas*`;
+\n\nVocê também pode digitar *#duvidas* para saber mais`;
+
+const payment_required_message = `Vamos lá! Falta pouco para adquirir seus produtos, realize o pagamento para começarmos a preparar a sua encomenda.
+\n\nVocê também pode digitar *#duvidas* para saber mais`;
 
 const production_message = `Oba!! Seu pedido foi enviado para produção, você será notificado quando estiver pronto para entrega ou retirada.
 \n\nAgradecemos com muita enfâse a preferência. ❤️
@@ -71,4 +74,5 @@ export {
   confirm_payment_data,
   confirm_bairro_data,
   production_message,
+  payment_required_message,
 };

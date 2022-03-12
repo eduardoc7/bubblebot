@@ -8,6 +8,7 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
 import QRCode from 'qrcode';
+import { redisClient } from './redis';
 
 type MercadoPagoProps = {
   order_data: IOrder;
@@ -18,6 +19,7 @@ export class MercadoPago {
   private order_data;
   private api_access_key;
   private callback_url;
+  private external_reference;
 
   private constructor(props: MercadoPagoProps) {
     dotenv.config();
@@ -26,6 +28,26 @@ export class MercadoPago {
     this.path_url = process.env.PATH_URL_MP || '';
     this.api_access_key = process.env.ACCESS_KEY_MP;
     this.callback_url = process.env.PATH_CALLBACK;
+    this.external_reference = uuidv4();
+  }
+
+  public async saveQrCodeOnCache(
+    qrcode_data: string,
+    message_from: string,
+  ): Promise<void> {
+    const data = {
+      message_from,
+      qrcode_data,
+    };
+
+    redisClient.set(
+      'pagamentopix:' + this.getExternalReference(),
+      JSON.stringify(data),
+    );
+  }
+
+  public getExternalReference(): string {
+    return this.external_reference;
   }
 
   public async generateQrCode(): Promise<any> {
@@ -34,6 +56,8 @@ export class MercadoPago {
     );
 
     const json_data = Convert.iQrCodeRequestToJson(request_data);
+
+    console.log('REQUEST: ', json_data);
 
     const res = await axios
       .post<IQRCodeData>(this.path_url, json_data, {
@@ -50,6 +74,7 @@ export class MercadoPago {
 
     return res;
   }
+
   public async getImgFromQrCodeData(qrcode_data: string): Promise<string> {
     let qrcode_base64;
     try {
@@ -79,7 +104,7 @@ export class MercadoPago {
     });
 
     const data = {
-      external_reference: uuidv4(),
+      external_reference: this.getExternalReference(),
       description: `Pedido para ${order.name}`,
       title: `Venda para ${order.name}`,
       expiration_date: '2023-08-22T16:34:56.559-04:00',

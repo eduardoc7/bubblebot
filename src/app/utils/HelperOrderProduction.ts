@@ -20,6 +20,7 @@ export class HelperOrderProduction {
 
   private async saveOrderInGroup(): Promise<any> {
     const group_chat = await this.tryGetOrCreateChatGroup(this.group_chat_id);
+    console.log('MESAGGE FROM HELPER: ', this.message_from);
     const order = await this.getOrderFromCache(this.message_from);
     const message_to_send_group = await this.prepareMessageToSendGroup(order);
     this.notifyOrderToAdminProduction(this.admin_production, order);
@@ -43,6 +44,8 @@ export class HelperOrderProduction {
 
   private async getOrderFromCache(message_from: string): Promise<IOrder> {
     const order_json = await redisClient.get('order:' + message_from);
+
+    console.log('JSON TO CONVERT HELPER> ', order_json);
 
     const order_obj = Convert.toIOrder(order_json || '');
     return order_obj;

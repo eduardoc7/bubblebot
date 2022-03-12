@@ -12,6 +12,7 @@ import {
   confirm_delivery_data,
   confirm_payment_data,
   confirm_bairro_data,
+  payment_required_message,
 } from '../utils/ReturnsMessages';
 import OrderHandlerCache from '../cache/OrderHandlerCache';
 
@@ -38,6 +39,7 @@ export const AnyMessageHandler = {
     if (await OrderMessageHandler.CheckExistsOrderToUser(msg)) {
       const order_status = await OrderMessageHandler.getStatusOrder(msg);
 
+      console.log(order_status);
       switch (order_status) {
         case 'created':
           return msg.reply(created_status_message);
@@ -52,6 +54,8 @@ export const AnyMessageHandler = {
           return msg.reply(confirm_delivery_data);
         case 'pagamento-dados':
           return msg.reply(confirm_payment_data);
+        case 'pix-pendente':
+          return msg.reply(payment_required_message);
         case 'producao':
           return msg.reply(production_status_message);
       }
