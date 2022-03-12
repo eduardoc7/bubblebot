@@ -1,14 +1,14 @@
 import { Message, MessageMedia } from 'whatsapp-web.js';
 import { AnyMessageHandler } from './AnyMessageHandler';
 import { OrderMessageHandler } from './OrderMessageHandler';
-import { client } from '../../services/whatsapp';
+import { client } from '../../../services/whatsapp';
 import type { IOrder } from '../interfaces/Order';
 import OrderHandlerCache from '../cache/OrderHandlerCache';
 import HelperCurrency from '../utils/HelperCurrency';
 import HelperStr from '../utils/HelperStr';
 import { production_message } from '../utils/ReturnsMessages';
 import { HelperOrderProduction } from '../utils/HelperOrderProduction';
-import { MercadoPago } from '../../services/MercadoPago';
+import { MercadoPago } from '../../../services/MercadoPago';
 import { IResponse } from '../interfaces/QrCodeRequest';
 
 export const OrderPaymentHandler = {

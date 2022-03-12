@@ -1,7 +1,7 @@
 import { Convert as ConvertQr } from '../interfaces/IQrCodeCache';
-import { client } from '../../services/whatsapp';
+import { client } from '../../../services/whatsapp';
 import { production_message } from '../utils/ReturnsMessages';
-import { redisClient } from '../../services/redis';
+import { redisClient } from '../../../services/redis';
 import { Convert } from '../interfaces/Order';
 import { HelperOrderProduction } from './HelperOrderProduction';
 

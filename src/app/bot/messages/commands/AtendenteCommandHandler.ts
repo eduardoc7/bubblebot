@@ -1,6 +1,6 @@
 import { Message } from 'whatsapp-web.js';
-import { client } from '../../../services/whatsapp';
-import { redisClient } from '../../../services/redis';
+import { client } from '../../../../services/whatsapp';
+import { redisClient } from '../../../../services/redis';
 
 export const AtendenteCommandHandler = {
   async execute(msg: Message): Promise<Message> {

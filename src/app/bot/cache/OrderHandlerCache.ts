@@ -1,4 +1,4 @@
-import { redisClient } from '../../services/redis';
+import { redisClient } from '../../../services/redis';
 import { Order as Orderwpp, Message } from 'whatsapp-web.js';
 import { IOrder, Convert } from '../interfaces/Order';
 

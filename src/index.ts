@@ -1,8 +1,8 @@
 import { client } from './services/whatsapp';
-import { MessageHandler } from './app/messages';
+import { MessageHandler } from './app/bot/messages';
 import express from 'express';
 import cors from 'cors';
-import { router } from './routes';
+import { router } from './app/api/routes';
 
 client.on('message_create', MessageHandler);
 

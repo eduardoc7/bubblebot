@@ -1,6 +1,6 @@
 import { Chat } from 'whatsapp-web.js';
-import { redisClient } from '../../services/redis';
-import { client } from '../../services/whatsapp';
+import { redisClient } from '../../../services/redis';
+import { client } from '../../../services/whatsapp';
 import { Convert, IOrder } from '../interfaces/Order';
 import HelperCurrency from './HelperCurrency';
 

@@ -1,7 +1,7 @@
 import { Request, Response, Router } from 'express';
 import mercadopago from 'mercadopago';
 import dotenv from 'dotenv';
-import { HelperPaymentPix } from '../app/utils/HelperPaymentPix';
+import { HelperPaymentPix } from '../../bot/utils/HelperPaymentPix';
 
 dotenv.config();
 mercadopago.configure({

@@ -1,10 +1,10 @@
 import dotenv from 'dotenv';
-import type { IOrder } from '../app/interfaces/Order';
+import type { IOrder } from '../app/bot/interfaces/Order';
 import {
   IQrCodeRequest,
   Convert,
   IQRCodeData,
-} from '../app/interfaces/QrCodeRequest';
+} from '../app/bot/interfaces/QrCodeRequest';
 import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
 import QRCode from 'qrcode';

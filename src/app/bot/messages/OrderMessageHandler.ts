@@ -1,7 +1,7 @@
 import type { Message } from 'whatsapp-web.js';
 import OrderHandlerCache from '../cache/OrderHandlerCache';
 import { IOrder } from '../interfaces/Order';
-import { redisClient } from '../../services/redis';
+import { redisClient } from '../../../services/redis';
 
 export const OrderMessageHandler = {
   async execute(msg: Message): Promise<Message> {
