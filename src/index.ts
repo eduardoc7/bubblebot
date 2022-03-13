@@ -3,6 +3,7 @@ import { MessageHandler } from './app/bot/messages';
 import express from 'express';
 import cors from 'cors';
 import { router } from './app/api/routes';
+import 'reflect-metadata';
 
 client.on('message_create', MessageHandler);
 

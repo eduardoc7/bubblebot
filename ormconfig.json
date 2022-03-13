@@ -1,0 +1,19 @@
+{
+    "type": "mysql",
+    "host": "localhost",
+    "port": 3306,
+    "username": "root",
+    "password": "7CXCj0lbBFSZ3uaM5NxAFW1WjcAM1PQD7r5uMztA",
+    "database": "bubblebot",
+    "synchronize": true,
+    "logging": false,
+    "entities": [
+        "src/app/api/models/**.ts"
+    ],
+    "migrations": [
+        "src/app/api/database/migrations/**.ts"
+    ],
+    "cli": {
+        "migrationsDir": "./src/app/api/database/migrations"
+    }
+}
