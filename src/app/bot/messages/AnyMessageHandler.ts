@@ -13,6 +13,7 @@ import {
   confirm_payment_data,
   confirm_bairro_data,
   payment_required_message,
+  finished_order_message,
 } from '../utils/ReturnsMessages';
 import OrderHandlerCache from '../cache/OrderHandlerCache';
 
@@ -48,7 +49,6 @@ export const AnyMessageHandler = {
         case 'endereco-dados':
           return msg.reply(confirm_address_data);
         case 'taxa-entrega':
-          console.log('OIIIIIII');
           return msg.reply(confirm_bairro_data);
         case 'entrega-dados':
           return msg.reply(confirm_delivery_data);
@@ -58,6 +58,8 @@ export const AnyMessageHandler = {
           return msg.reply(payment_required_message);
         case 'producao':
           return msg.reply(production_status_message);
+        case 'finalizado':
+          return msg.reply(finished_order_message);
       }
     }
 

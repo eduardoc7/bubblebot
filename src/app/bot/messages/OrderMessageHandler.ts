@@ -122,6 +122,7 @@ export const OrderMessageHandler = {
 
     obj.location.bairro = bairro_name || '';
     obj.total = Number(obj.total) + taxa_entrega_to_pay;
+    obj.location.taxa_entrega = Number(taxa_entrega_to_pay);
     obj.status = status;
 
     const data = JSON.stringify(obj).replace(/\\"/g, '"');

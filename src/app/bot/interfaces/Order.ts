@@ -29,6 +29,8 @@ export interface Location {
   latitude: string;
   longitude: string;
   bairro: string;
+
+  taxa_entrega: number;
 }
 
 // Converts JSON strings to/from your types
@@ -226,6 +228,7 @@ const typeMap: any = {
       { json: 'latitude', js: 'latitude', typ: '' },
       { json: 'longitude', js: 'longitude', typ: '' },
       { json: 'bairro', js: 'bairro', typ: '' },
+      { json: 'taxa_entrega', js: 'taxa_entrega', typ: 0 },
     ],
     false,
   ),

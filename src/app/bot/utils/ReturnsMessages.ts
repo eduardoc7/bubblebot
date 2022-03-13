@@ -59,6 +59,12 @@ const production_message = `Oba!! Seu pedido foi enviado para produção, você 
 👉Whatsapp - bit.ly/36J59sd
 \nCompartilhe!`;
 
+const finished_order_message = `Estamos muito contente com a sua compra na nossa loja.
+\nAgora você pode fazer um novo pedido: *#car*
+\nE visualizar o seu pedido finalizado: *#ver*
+
+\n\nVocê também pode digitar *#duvidas* para saber mais`;
+
 const last_option_message = `Eita, que coisa. Não entendi :/ \nMas está tudo bem.
 \n\nVocê pode digitar *#duvidas* para saber mais informações sobre nós.`;
 
@@ -75,4 +81,5 @@ export {
   confirm_bairro_data,
   production_message,
   payment_required_message,
+  finished_order_message,
 };

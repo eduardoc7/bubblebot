@@ -10,6 +10,7 @@ import { OrderProductionStatusHandler } from './OrderProductionStatusHandler';
 import { CreatedOrderStatusHandler } from './CreatedOrderStatusHandler';
 import { OrderTaxaDeliveryHandler } from './OrderTaxaDeliveryHandler';
 import { OrderPaymentRequired } from './OrderPaymentRequired';
+import { OrderFinishedStatusHandler } from './OrderFinishedStatusHandler';
 
 import { FinishOrderCommandHandler } from './commands/FinishOrderCommandHandler';
 import { DoubtCommandHandler } from './commands/DoubtCommandHandler';
@@ -55,6 +56,7 @@ export const MessageHandler = async (message: Message): Promise<void> => {
     await messageDispatcher.register('pagamento-dados', OrderPaymentHandler);
     await messageDispatcher.register('pix-pendente', OrderPaymentRequired);
     await messageDispatcher.register('producao', OrderProductionStatusHandler);
+    await messageDispatcher.register('finalizado', OrderFinishedStatusHandler);
 
     const isOrder = message.type == 'order';
 

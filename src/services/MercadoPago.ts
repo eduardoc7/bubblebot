@@ -9,6 +9,8 @@ import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
 import QRCode from 'qrcode';
 import { redisClient } from './redis';
+import { sha512 } from 'sha512-crypt-ts';
+import crypto from 'crypto';
 
 type MercadoPagoProps = {
   order_data: IOrder;
@@ -20,6 +22,7 @@ export class MercadoPago {
   private api_access_key;
   private callback_url;
   private external_reference;
+  private hash_callback: any;
 
   private constructor(props: MercadoPagoProps) {
     dotenv.config();
@@ -38,6 +41,7 @@ export class MercadoPago {
     const data = {
       message_from,
       qrcode_data,
+      hash_callback: sha512.crypt(this.hash_callback, 'saltsalt'),
     };
 
     redisClient.set(
@@ -46,11 +50,13 @@ export class MercadoPago {
     );
   }
 
-  /**
-   * função que monta uma url de callback com uma hash
-   * gera a hash aleatória e salva em cache na funcao saveQrCodeOnCache sha521(minha hash)
-   * recebe o callback, pega a hash, passa pra sha512 e verifica com a do cache
-   */
+  public setHashNotifictionUrl() {
+    this.hash_callback = crypto.randomBytes(20).toString('hex');
+  }
+
+  public getHashNotifictionUrl(): string {
+    return this.hash_callback;
+  }
 
   public getExternalReference(): string {
     return this.external_reference;
@@ -93,6 +99,8 @@ export class MercadoPago {
   }
 
   private prepareJsonToSendRequest(order: IOrder): IQrCodeRequest {
+    this.setHashNotifictionUrl();
+
     const items: any = [];
     order.items.map((item, index) => {
       const total_amount_items = (Number(item.price) / 1000) * item.quantity;
@@ -108,13 +116,24 @@ export class MercadoPago {
       };
     });
 
+    items.push({
+      title: 'Taxa de entrega',
+      quantity: 1,
+      unit_price: Number(order.location.taxa_entrega) / 1000,
+      description: `Bairro: ${order.location.bairro}`,
+      sku_number: 'KS955RUR',
+      category: `Produto`,
+      unit_measure: 'unit',
+      total_amount: Number(order.location.taxa_entrega) / 1000,
+    });
+
     const data = {
       external_reference: this.getExternalReference(),
       description: `Pedido para ${order.name}`,
       title: `Venda para ${order.name}`,
       expiration_date: '2023-08-22T16:34:56.559-04:00',
       total_amount: Number(order.total) / 1000,
-      notification_url: this.callback_url,
+      notification_url: `${this.callback_url}/${this.getHashNotifictionUrl()}`,
       items: items,
     };
 

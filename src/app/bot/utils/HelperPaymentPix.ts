@@ -4,6 +4,7 @@ import { production_message } from '../utils/ReturnsMessages';
 import { redisClient } from '../../../services/redis';
 import { Convert } from '../interfaces/Order';
 import { HelperOrderProduction } from './HelperOrderProduction';
+import { sha512 } from 'sha512-crypt-ts';
 
 export const HelperPaymentPix = {
   async updateStatusPaymentOrder(
@@ -43,6 +44,28 @@ export const HelperPaymentPix = {
       HelperOrderProduction.create({ message_from: qrcode_obj.message_from });
     }
 
+    return true;
+  },
+
+  async checkHashCallbackIsValid(
+    external_reference: string,
+    hash_in_notification: string,
+  ): Promise<boolean> {
+    const cache_qrcode = await redisClient.get(
+      'pagamentopix:' + external_reference,
+    );
+
+    const qrcode_obj = ConvertQr.toIQrCodeCache(cache_qrcode || '');
+
+    if (qrcode_obj == null) {
+      return false;
+    }
+
+    if (
+      sha512.crypt(hash_in_notification, 'saltsalt') != qrcode_obj.hash_callback
+    ) {
+      return false;
+    }
     return true;
   },
 };

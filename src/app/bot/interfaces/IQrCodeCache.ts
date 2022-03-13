@@ -10,6 +10,7 @@
 export interface IQrCodeCache {
   message_from: string;
   qrcode_data: string;
+  hash_callback: string;
 }
 
 // Converts JSON strings to/from your types
@@ -176,6 +177,7 @@ const typeMap: any = {
     [
       { json: 'message_from', js: 'message_from', typ: '' },
       { json: 'qrcode_data', js: 'qrcode_data', typ: '' },
+      { json: 'hash_callback', js: 'hash_callback', typ: '' },
     ],
     false,
   ),
