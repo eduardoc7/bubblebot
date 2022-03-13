@@ -2,7 +2,7 @@ import { Message } from 'whatsapp-web.js';
 import { client } from '../../../../services/whatsapp';
 import { redisClient } from '../../../../services/redis';
 
-export const AtendenteCommandHandler = {
+export const HelpCommandHandler = {
   async execute(msg: Message): Promise<Message> {
     const chat = await msg.getChat();
     await chat.sendStateTyping();

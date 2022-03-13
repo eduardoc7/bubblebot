@@ -1,12 +1,13 @@
 import { Message } from 'whatsapp-web.js';
 import OrderHandlerCache from '../../cache/OrderHandlerCache';
+import { HelperCommands } from '../../utils/HelperCommands';
 
 export const DoneAtendimentoHandler = {
   async execute(msg: Message): Promise<Message> {
     const chat = await msg.getChat();
     await chat.sendStateTyping();
 
-    if (msg.from != '554184510719@c.us') {
+    if (!HelperCommands.checkIfIsAdmin(msg.from)) {
       return msg.reply(
         'Desculpe! Você não tem permissão para usar esse comando. ❌',
       );
