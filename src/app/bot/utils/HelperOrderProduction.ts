@@ -3,27 +3,42 @@ import { redisClient } from '../../../services/redis';
 import { client } from '../../../services/whatsapp';
 import { Convert, IOrder } from '../interfaces/Order';
 import HelperCurrency from './HelperCurrency';
+import dotenv from 'dotenv';
 
 type OrderProductionProps = {
   message_from: string;
+  isUpdated?: boolean;
 };
 
 export class HelperOrderProduction {
   private message_from: string;
   private group_chat_id: string;
   private admin_production: string;
+  private isUpdated?: boolean;
   private constructor(props: OrderProductionProps) {
+    dotenv.config();
+
+    this.isUpdated = props.isUpdated;
     this.message_from = props.message_from;
-    this.group_chat_id = '120363042023479333@g.us';
-    this.admin_production = '554184510719@c.us';
+    this.message_from = props.message_from;
+    this.group_chat_id = process.env.GROUP_CHAT_ID || '';
+    this.admin_production = process.env.ADMINS?.split(' ')[0] || '';
   }
 
+  /**
+   * criar uma tag de atualização da order
+   * se tiver ativa, nao manda mensagem pro admin
+   * e atualiza o pedido no grupo
+   * obs: vai ter que vir atualizado no cache
+   */
   private async saveOrderInGroup(): Promise<any> {
     const group_chat = await this.tryGetOrCreateChatGroup(this.group_chat_id);
-    console.log('MESAGGE FROM HELPER: ', this.message_from);
     const order = await this.getOrderFromCache(this.message_from);
     const message_to_send_group = await this.prepareMessageToSendGroup(order);
-    this.notifyOrderToAdminProduction(this.admin_production, order);
+
+    if (!this.isUpdated) {
+      this.notifyOrderToAdminProduction(this.admin_production, order);
+    }
 
     await group_chat.sendMessage(message_to_send_group);
   }
@@ -50,14 +65,18 @@ export class HelperOrderProduction {
   }
 
   private async prepareMessageToSendGroup(order: IOrder): Promise<string> {
-    const items_to_print = order.items.map((item, index) => {
+    const isUpdatedMessage = !this.isUpdated
+      ? ''
+      : '⚠️ *PEDIDO ATUALIZADO* ⚠️\n\n';
+
+    const items_to_print = order.items.map((item) => {
       return `
         •${item.name}:
         →Quantidade: ${item.quantity}
         →Preço: *${HelperCurrency.priceToString(Number(item.price))}*\n`;
     });
 
-    const message_to_write = `*DADOS DO PEDIDO*
+    const message_to_write = `${isUpdatedMessage}*DADOS DO PEDIDO*
     \n*N° do pedido*: ${order.identifier}
     \n*Cliente:*
     •Nome: ${order.name}
@@ -71,8 +90,10 @@ export class HelperOrderProduction {
     \n*Dados de pagamento:*
     •Forma de pagamento: ${order.payment_method}
     •Status do pagamento: ${order.payment_status}
-    \n*Status do pedido*: ${order.status}
+    \n*Status do pedido:* ${order.status}
     \nTotal da Compra: *${HelperCurrency.priceToString(Number(order.total))}*
+    \n*Criado Em:* ${order.created_at}
+    \n*Última atualização:* ${order.updated_at}
     `;
 
     return message_to_write;

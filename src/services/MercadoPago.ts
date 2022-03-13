@@ -46,6 +46,12 @@ export class MercadoPago {
     );
   }
 
+  /**
+   * função que monta uma url de callback com uma hash
+   * gera a hash aleatória e salva em cache na funcao saveQrCodeOnCache sha521(minha hash)
+   * recebe o callback, pega a hash, passa pra sha512 e verifica com a do cache
+   */
+
   public getExternalReference(): string {
     return this.external_reference;
   }

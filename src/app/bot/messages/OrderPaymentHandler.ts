@@ -34,7 +34,7 @@ export const OrderPaymentHandler = {
         'Aguarde alguns instantes enquanto preparamos o seu QR Code para pagamento 🚀',
       );
 
-      const obj: IOrder = await OrderHandlerCache.getOrderFromMessage(msg);
+      const obj: IOrder = await OrderHandlerCache.getOrderFromMessage(msg.from);
 
       const MercadoPagoService = MercadoPago.create({ order_data: obj });
       const { data }: IResponse = await MercadoPagoService.generateQrCode();
@@ -79,7 +79,7 @@ export const OrderPaymentHandler = {
           HelperStr.formatMessageToCheck(msg.body),
         );
       }
-      const obj: IOrder = await OrderHandlerCache.getOrderFromMessage(msg);
+      const obj: IOrder = await OrderHandlerCache.getOrderFromMessage(msg.from);
 
       client.sendMessage(
         msg._getChatId(),

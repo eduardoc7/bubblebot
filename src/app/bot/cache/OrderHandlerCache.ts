@@ -35,8 +35,8 @@ export default class OrderHandlerCache {
     //   created_at: 1646352885
     // }
    */
-  static async getOrderFromMessage(msg: Message): Promise<IOrder> {
-    const order_json = await redisClient.get('order:' + msg.from);
+  static async getOrderFromMessage(msg_from: string): Promise<IOrder> {
+    const order_json = await redisClient.get('order:' + msg_from);
 
     const order_obj = Convert.toIOrder(order_json || '');
     return order_obj;
@@ -55,7 +55,7 @@ export default class OrderHandlerCache {
     nome_atendido: string,
   ): Promise<boolean> {
     const atendimento = await redisClient.get(
-      `atendimento:${msg.from}:${nome_atendido}`,
+      `atendimento:554184510719@c.us:${nome_atendido}`,
     );
     if (atendimento == null) {
       return false;
@@ -82,7 +82,6 @@ export default class OrderHandlerCache {
 
     const now = moment().format('DD-MM-YYYY-hh:mm:ss');
 
-    console.log(now);
     const data = {
       identifier: identifier,
       name: contact.pushname,

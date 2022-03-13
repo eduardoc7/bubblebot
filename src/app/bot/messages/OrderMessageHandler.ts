@@ -22,7 +22,7 @@ export const OrderMessageHandler = {
 
   async CheckExistsOrderToUser(msg: Message): Promise<boolean> {
     try {
-      const obj: IOrder = await OrderHandlerCache.getOrderFromMessage(msg);
+      const obj: IOrder = await OrderHandlerCache.getOrderFromMessage(msg.from);
     } catch (e) {
       console.log('error in CheckExistsOrderToUser: ', e);
       return false;
@@ -31,7 +31,7 @@ export const OrderMessageHandler = {
   },
 
   async getStatusOrder(msg: Message): Promise<string> {
-    const obj: IOrder = await OrderHandlerCache.getOrderFromMessage(msg);
+    const obj: IOrder = await OrderHandlerCache.getOrderFromMessage(msg.from);
 
     return obj.status;
   },
@@ -39,7 +39,7 @@ export const OrderMessageHandler = {
   async updateStatusOder(msg: Message, status: string): Promise<boolean> {
     let obj: IOrder;
     try {
-      obj = await OrderHandlerCache.getOrderFromMessage(msg);
+      obj = await OrderHandlerCache.getOrderFromMessage(msg.from);
     } catch (e) {
       console.log(e);
       return false;
@@ -59,7 +59,7 @@ export const OrderMessageHandler = {
   ): Promise<boolean> {
     let obj: IOrder;
     try {
-      obj = await OrderHandlerCache.getOrderFromMessage(msg);
+      obj = await OrderHandlerCache.getOrderFromMessage(msg.from);
     } catch (e) {
       console.log(e);
       return false;
@@ -82,7 +82,7 @@ export const OrderMessageHandler = {
   ): Promise<boolean> {
     let obj: IOrder;
     try {
-      obj = await OrderHandlerCache.getOrderFromMessage(msg);
+      obj = await OrderHandlerCache.getOrderFromMessage(msg.from);
     } catch (e) {
       console.log(e);
       return false;
@@ -137,7 +137,7 @@ export const OrderMessageHandler = {
   ): Promise<boolean> {
     let obj: IOrder;
     try {
-      obj = await OrderHandlerCache.getOrderFromMessage(msg);
+      obj = await OrderHandlerCache.getOrderFromMessage(msg.from);
     } catch (e) {
       console.log(e);
       return false;
@@ -159,7 +159,7 @@ export const OrderMessageHandler = {
   ): Promise<boolean> {
     let obj: IOrder;
     try {
-      obj = await OrderHandlerCache.getOrderFromMessage(msg);
+      obj = await OrderHandlerCache.getOrderFromMessage(msg.from);
     } catch (e) {
       console.log(e);
       return false;

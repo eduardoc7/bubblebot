@@ -15,7 +15,7 @@ export const DoubtCommandHandler = {
       👉 Todos os nossos produtos são feitos a mão cuidando de cada minucioso detalhe para entregar o melhor para os nossos clientes.
       \nO que eu posso fazer aqui pelo Whatsapp?
       👉 Gerar um pedido e fazer uma compra de modo automatizado: *#car*
-      👉 Falar com um de nossos atendentes: *#atendente*
+      👉 Falar com um de nossos atendentes: *#ajuda*
       👉 Saber mais sobre o nosso bot: *#bot*
       \nDepois de fazer uma compra, como posso gerenciar meu pedido?
       👉 Para visualizar seu pedido: *#ver*

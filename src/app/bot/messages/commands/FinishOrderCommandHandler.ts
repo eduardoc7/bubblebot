@@ -11,7 +11,7 @@ export const FinishOrderCommandHandler = {
 
     let obj: IOrder;
     try {
-      obj = await OrderHandlerCache.getOrderFromMessage(msg);
+      obj = await OrderHandlerCache.getOrderFromMessage(msg.from);
     } catch (e) {
       console.log(e);
       return msg.reply(

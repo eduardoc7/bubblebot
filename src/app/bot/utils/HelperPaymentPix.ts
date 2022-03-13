@@ -42,6 +42,7 @@ export const HelperPaymentPix = {
 
       // HelperOrderProduction.create({ message_from: qrcode_obj.message_from });
     }
+    // se for diferente de pago atualiza o status
 
     return true;
   },

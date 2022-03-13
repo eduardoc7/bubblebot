@@ -10,7 +10,7 @@ export const InfoOrderCommandHandler = {
 
     let obj: IOrder;
     try {
-      obj = await OrderHandlerCache.getOrderFromMessage(msg);
+      obj = await OrderHandlerCache.getOrderFromMessage(msg.from);
     } catch (e) {
       console.log(e);
       return msg.reply(
@@ -37,7 +37,9 @@ export const InfoOrderCommandHandler = {
     \n*Dados de pagamento:*
     •Forma de pagamento: ${obj.payment_method}
     •Status do pagamento: ${obj.payment_status}
-    \n*Status do pedido*: ${obj.status}
+    \n*Status do pedido:* ${obj.status}
+    \n*Criado Em:* ${obj.created_at}
+    \n*Última atualização:* ${obj.updated_at}
     \nTotal da Compra: *${HelperCurrency.priceToString(Number(obj.total))}*
   `;
 
