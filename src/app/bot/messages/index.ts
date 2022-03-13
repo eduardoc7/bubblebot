@@ -20,6 +20,7 @@ import { CancelOrderCommandHandler } from './commands/CancelOrderCommandHandler'
 import { HelpCommandHandler } from './commands/HelpCommandHandler';
 import { DoneAtendimentoHandler } from './commands/DoneAtendimentoHandler';
 import { NotifyOrderHandler } from './commands/NotifyOrderCommandHandler';
+import { UpdateOrderStatus } from './commands/UpdateOrderStatus';
 
 export const MessageHandler = async (message: Message): Promise<void> => {
   console.log(message);
@@ -36,6 +37,7 @@ export const MessageHandler = async (message: Message): Promise<void> => {
     await messageDispatcher.register('ajuda', HelpCommandHandler);
     await messageDispatcher.register('encerrar', DoneAtendimentoHandler);
     await messageDispatcher.register('entrega', NotifyOrderHandler);
+    await messageDispatcher.register('atualizar', UpdateOrderStatus);
 
     // handlers by messages types
     await messageDispatcher.register('order', OrderMessageHandler);

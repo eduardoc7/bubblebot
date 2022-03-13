@@ -33,12 +33,6 @@ export const HelperCommands = {
       return msg.reply('Ops! Ocorreu um erro ao buscar esse pedido.');
     }
 
-    if (obj_order.status != 'producao') {
-      return msg.reply(
-        'Ops! Só é possível atualizar pedidos, se antes eles estiverem em produção',
-      );
-    }
-
     const now = moment().format('DD-MM-YYYY-hh:mm:ss');
     obj_order.status = status_to_update;
     obj_order.updated_at = now;
@@ -55,12 +49,14 @@ export const HelperCommands = {
           '\nAgora ele está a caminho da sua localização, por favor, prepare-se para recebe-lo';
         break;
       case 'finalizado':
-        message_to_reply = `\nSeu pedido foi finalizado com sucesso ✅.
+        message_to_reply = `\nAgora seu pedido foi finalizado ✅.
         \nAgradecemos a preferência e esperamos nos encontrar com você mais e mais vezes.
         \nSe você gostou da experiência, compartilhe nos marcando nas redes sociais:
         \n👉Instagram - https://www.instagram.com/magicbubblesart/
         \n👉Facebook - https://www.facebook.com/magicbubbles`;
         break;
+      default:
+        message_to_reply = '';
     }
 
     HelperOrderProduction.create({
@@ -70,7 +66,8 @@ export const HelperCommands = {
 
     return await client.sendMessage(
       notification_to,
-      `Eiii, passamos pra avisar que o seu pedido *N° ${obj_order.identifier}* foi atualizado! ${message_to_reply}`,
+      `Eiii, passamos pra avisar que o seu pedido *N° ${obj_order.identifier}* foi atualizado! ${message_to_reply}
+      \n\nVocê também pode digitar *#ver* para visualizar mais informações sobre seu pedido.`,
     );
   },
 };

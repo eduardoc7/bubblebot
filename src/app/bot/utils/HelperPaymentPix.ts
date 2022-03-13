@@ -40,9 +40,8 @@ export const HelperPaymentPix = {
 
       await client.sendMessage(qrcode_obj.message_from, production_message);
 
-      // HelperOrderProduction.create({ message_from: qrcode_obj.message_from });
+      HelperOrderProduction.create({ message_from: qrcode_obj.message_from });
     }
-    // se for diferente de pago atualiza o status
 
     return true;
   },
