@@ -90,6 +90,7 @@ export class HelperOrderProduction {
     \n*Dados de pagamento:*
     •Forma de pagamento: ${order.payment_method}
     •Status do pagamento: ${order.payment_status}
+    •Taxa de entrega: ${order.location.taxa_entrega}
     \n*Status do pedido:* ${order.status}
     \nTotal da Compra: *${HelperCurrency.priceToString(Number(order.total))}*
     \n*Criado Em:* ${order.created_at}
