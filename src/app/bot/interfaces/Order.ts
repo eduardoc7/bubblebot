@@ -21,7 +21,8 @@ export interface IOrder {
   location: Location;
   status: string;
   chatId: string;
-  created_at: number;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface Location {
@@ -203,7 +204,8 @@ const typeMap: any = {
       { json: 'location', js: 'location', typ: r('Location') },
       { json: 'status', js: 'status', typ: '' },
       { json: 'chatId', js: 'chatId', typ: '' },
-      { json: 'created_at', js: 'created_at', typ: 0 },
+      { json: 'created_at', js: 'created_at', typ: '' },
+      { json: 'updated_at', js: 'updated_at', typ: '' },
     ],
     false,
   ),

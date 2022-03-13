@@ -1,6 +1,7 @@
 import { redisClient } from '../../../services/redis';
 import { Order as Orderwpp, Message } from 'whatsapp-web.js';
 import { IOrder, Convert } from '../interfaces/Order';
+import moment from 'moment';
 
 export default class OrderHandlerCache {
   static async setOder(Identifier: string, data: string): Promise<void> {
@@ -37,7 +38,6 @@ export default class OrderHandlerCache {
   static async getOrderFromMessage(msg: Message): Promise<IOrder> {
     const order_json = await redisClient.get('order:' + msg.from);
 
-    console.log('orderJSON', order_json);
     const order_obj = Convert.toIOrder(order_json || '');
     return order_obj;
   }
@@ -80,6 +80,9 @@ export default class OrderHandlerCache {
       await contact.getFormattedNumber(),
     );
 
+    const now = moment().format('DD-MM-YYYY-hh:mm:ss');
+
+    console.log(now);
     const data = {
       identifier: identifier,
       name: contact.pushname,
@@ -96,7 +99,8 @@ export default class OrderHandlerCache {
       },
       status: 'created',
       chatId: message._getChatId(),
-      created_at: order.createdAt,
+      created_at: now,
+      updated_at: now,
     };
 
     return JSON.stringify(data);
