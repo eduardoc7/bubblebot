@@ -6,7 +6,7 @@ export const CarTutorialCommandHandler = {
     await chat.sendStateTyping();
 
     const media = MessageMedia.fromFilePath(
-      'src/app/messages/commands/video4985596413699162693.mp4',
+      'src/app/bot/messages/commands/video4985596413699162693.mp4',
     );
 
     chat.sendMessage(
