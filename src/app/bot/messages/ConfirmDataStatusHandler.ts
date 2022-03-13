@@ -15,8 +15,7 @@ export const ConfirmDataStatusHandler = {
         console.log('Erro ao atualizar o status: ', status_to_update);
       }
 
-      client.sendMessage(
-        msg._getChatId(),
+      await chat.sendMessage(
         `Agora precisamos que você nos diga alguns dados de entrega e pagamento. Será rapidinho.`,
       );
 

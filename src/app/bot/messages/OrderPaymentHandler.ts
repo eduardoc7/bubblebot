@@ -81,8 +81,7 @@ export const OrderPaymentHandler = {
       }
       const obj: IOrder = await OrderHandlerCache.getOrderFromMessage(msg.from);
 
-      client.sendMessage(
-        msg._getChatId(),
+      await chat.sendMessage(
         `Obrigado. Você realizará o pagamento no total de *${HelperCurrency.priceToString(
           Number(obj.total),
         )}* no momento da entrega ou retirada.`,

@@ -1,3 +1,4 @@
+import { AnyMessageHandler } from '../messages/AnyMessageHandler';
 import Message from './Message';
 
 class MessageDispatcher {
@@ -14,7 +15,7 @@ class MessageDispatcher {
           return;
         }
 
-        const message_type = this.messageHandlers.get(key);
+        const message_type = this.messageHandlers.get(key) ?? AnyMessageHandler;
         await message_type.execute(message);
       }
     }

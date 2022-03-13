@@ -98,7 +98,7 @@ export default class OrderHandlerCache {
         taxa_entrega: 0,
       },
       status: 'created',
-      chatId: message._getChatId(),
+      chatId: await contact.getChat(),
       created_at: now,
       updated_at: now,
     };

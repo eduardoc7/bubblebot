@@ -2,9 +2,10 @@
   "name": "bubblebot",
   "version": "1.0.0",
   "main": "index.js",
-  "type": "module",
+  "typings": "index",
   "license": "MIT",
   "dependencies": {
+    "@types/node": "^17.0.21",
     "axios": "^0.26.1",
     "cors": "^2.8.5",
     "crypto-ts": "^1.0.2",
@@ -16,12 +17,14 @@
     "qrcode-terminal": "^0.12.0",
     "redis": "^4.0.4",
     "sha512-crypt-ts": "^0.1.27",
+    "ts-node": "^10.7.0",
     "uuid": "^8.3.2",
     "whatsapp-web.js": "^1.16.3"
   },
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only --ignore-watch node_modules src/index.ts",
-    "lint": "eslint . --fix --ext .json"
+    "lint": "eslint . --fix --ext .json",
+    "start": "ts-node src/index.ts"
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",
@@ -39,6 +42,6 @@
     "eslint-plugin-prettier": "^4.0.0",
     "prettier": "2.5.1",
     "ts-node-dev": "^1.1.8",
-    "typescript": "^4.5.5"
+    "typescript": "^4.6.2"
   }
 }

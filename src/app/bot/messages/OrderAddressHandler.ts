@@ -24,8 +24,7 @@ export const OrderAddressHandler = {
         );
       }
 
-      client.sendMessage(
-        msg._getChatId(),
+      await chat.sendMessage(
         `Certo! Enviaremos sua encomenda com segurança dentro do prazo de entrega no conforto da sua casa.`,
       );
 
@@ -54,8 +53,7 @@ export const OrderAddressHandler = {
         );
       }
 
-      client.sendMessage(
-        msg._getChatId(),
+      await chat.sendMessage(
         `Certo! Você será notificado assim que a sua encomenda estiver pronta para retirada :).`,
       );
 

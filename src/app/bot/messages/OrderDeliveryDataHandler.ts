@@ -22,8 +22,7 @@ export const OrderDeliveryDataHandler = {
         console.log('Erro ao salvar localização no cache.');
       }
 
-      client.sendMessage(
-        msg._getChatId(),
+      await chat.sendMessage(
         'Obrigado. Seus dados de localização foram registrados com segurança.',
       );
 

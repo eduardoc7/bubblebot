@@ -21,8 +21,7 @@ export const OrderTaxaDeliveryHandler = {
         console.log('Erro ao salvar localização no cache.');
       }
 
-      client.sendMessage(
-        msg._getChatId(),
+      chat.sendMessage(
         'Obrigado. Seu balneário foi registrado e a taxa de entregada aplicada ;).',
       );
 
