@@ -131,11 +131,14 @@ function transform(val: any, typ: any, getProps: any, key: any = ''): any {
   }
   if (Array.isArray(typ)) return transformEnum(typ, val);
   if (typeof typ === 'object') {
+    // eslint-disable-next-line no-prototype-builtins
     return typ.hasOwnProperty('unionMembers')
       ? transformUnion(typ.unionMembers, val)
-      : typ.hasOwnProperty('arrayItems')
+      : // eslint-disable-next-line no-prototype-builtins
+      typ.hasOwnProperty('arrayItems')
       ? transformArray(typ.arrayItems, val)
-      : typ.hasOwnProperty('props')
+      : // eslint-disable-next-line no-prototype-builtins
+      typ.hasOwnProperty('props')
       ? transformObject(getProps(typ), typ.additional, val)
       : invalidValue(typ, val);
   }
