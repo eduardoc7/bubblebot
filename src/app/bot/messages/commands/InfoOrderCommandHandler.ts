@@ -18,7 +18,7 @@ export const InfoOrderCommandHandler = {
       );
     }
 
-    const items_to_print = obj.items.map((item, index) => {
+    const items_to_print = obj.items.map((item) => {
       return `
       •${item.name}:
       →Quantidade: ${item.quantity}
@@ -37,11 +37,12 @@ export const InfoOrderCommandHandler = {
     \n*Dados de pagamento:*
     •Forma de pagamento: ${obj.payment_method}
     •Status do pagamento: ${obj.payment_status}
+    •Taxa de entrega: ${obj.location.taxa_entrega}
     \n*Status do pedido:* ${obj.status}
+    \nTotal da Compra: *${HelperCurrency.priceToString(Number(obj.total))}*
     \n*Criado Em:* ${obj.created_at}
     \n*Última atualização:* ${obj.updated_at}
-    \nTotal da Compra: *${HelperCurrency.priceToString(Number(obj.total))}*
-  `;
+    `;
 
     await chat.sendMessage(order_data);
     return msg.reply(

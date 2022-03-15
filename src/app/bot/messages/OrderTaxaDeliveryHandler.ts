@@ -1,7 +1,6 @@
 import type { Message } from 'whatsapp-web.js';
 import { AnyMessageHandler } from './AnyMessageHandler';
 import { OrderMessageHandler } from './OrderMessageHandler';
-import { client } from '../../../services/whatsapp';
 
 export const OrderTaxaDeliveryHandler = {
   async execute(msg: Message): Promise<Message> {
@@ -21,7 +20,7 @@ export const OrderTaxaDeliveryHandler = {
         console.log('Erro ao salvar localização no cache.');
       }
 
-      chat.sendMessage(
+      await chat.sendMessage(
         'Obrigado. Seu balneário foi registrado e a taxa de entregada aplicada ;).',
       );
 

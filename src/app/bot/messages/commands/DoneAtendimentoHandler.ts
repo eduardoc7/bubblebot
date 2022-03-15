@@ -22,10 +22,7 @@ export const DoneAtendimentoHandler = {
     }
 
     if (
-      !(await OrderHandlerCache.setAtendimentoToFinish(
-        msg,
-        atendido.toLowerCase(),
-      ))
+      !(await OrderHandlerCache.setAtendimentoToFinish(atendido.toLowerCase()))
     ) {
       return msg.reply('Nenhum atendimento encontrado! ❌');
     }

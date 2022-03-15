@@ -1,7 +1,6 @@
 import { Message, MessageMedia } from 'whatsapp-web.js';
 import { AnyMessageHandler } from './AnyMessageHandler';
 import { OrderMessageHandler } from './OrderMessageHandler';
-import { client } from '../../../services/whatsapp';
 import type { IOrder } from '../interfaces/Order';
 import OrderHandlerCache from '../cache/OrderHandlerCache';
 import HelperCurrency from '../utils/HelperCurrency';

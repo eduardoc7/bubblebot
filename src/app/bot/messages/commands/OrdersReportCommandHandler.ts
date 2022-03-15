@@ -1,4 +1,4 @@
-import { Message, MessageMedia } from 'whatsapp-web.js';
+import { Message } from 'whatsapp-web.js';
 
 export const NotifyOrderHandler = {
   async execute(msg: Message): Promise<Message> {
@@ -9,6 +9,8 @@ export const NotifyOrderHandler = {
      * comando que lê as mensagens do grupo de pedidos
      * e tenta pegar alguns dados como status e valor para fazer um relatório
      */
-    return msg.reply('');
+    return msg.reply(
+      'Ops! Isso ainda está em desenvolvimento. Tente novamente, mais tarde.',
+    );
   },
 };

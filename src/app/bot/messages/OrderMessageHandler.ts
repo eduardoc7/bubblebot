@@ -23,6 +23,7 @@ export const OrderMessageHandler = {
   async CheckExistsOrderToUser(msg: Message): Promise<boolean> {
     try {
       const obj: IOrder = await OrderHandlerCache.getOrderFromMessage(msg.from);
+      console.log('STATUS ORDER: ', obj.status);
     } catch (e) {
       console.log('error in CheckExistsOrderToUser: ', e);
       return false;

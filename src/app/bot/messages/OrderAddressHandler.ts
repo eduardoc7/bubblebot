@@ -1,7 +1,6 @@
 import type { Message } from 'whatsapp-web.js';
 import { AnyMessageHandler } from './AnyMessageHandler';
 import { OrderMessageHandler } from './OrderMessageHandler';
-import { client } from '../../../services/whatsapp';
 import HelperStr from '../utils/HelperStr';
 
 export const OrderAddressHandler = {

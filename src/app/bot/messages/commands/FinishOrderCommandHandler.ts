@@ -24,7 +24,7 @@ export const FinishOrderCommandHandler = {
       console.log('Erro ao atualizar o status: ', status_to_update);
     }
 
-    const items_to_print = obj.items.map((item, index) => {
+    const items_to_print = obj.items.map((item) => {
       return `
       •${item.name}:
       →Quantidade: ${item.quantity}

@@ -1,7 +1,7 @@
 import { Message } from 'whatsapp-web.js';
 import { HelperCommands } from '../../utils/HelperCommands';
 
-export const UpdateOrderStatus = {
+export const UpdateOrderStatusCommand = {
   async execute(msg: Message): Promise<Message> {
     const chat = await msg.getChat();
     await chat.sendStateTyping();

@@ -1,7 +1,6 @@
 import type { Message } from 'whatsapp-web.js';
 import { AnyMessageHandler } from './AnyMessageHandler';
 import { OrderMessageHandler } from './OrderMessageHandler';
-import { client } from '../../../services/whatsapp';
 
 export const OrderDeliveryDataHandler = {
   async execute(msg: Message): Promise<Message> {

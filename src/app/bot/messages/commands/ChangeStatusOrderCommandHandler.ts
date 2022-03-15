@@ -1,4 +1,4 @@
-import { Message, MessageMedia } from 'whatsapp-web.js';
+import { Message } from 'whatsapp-web.js';
 
 export const ChangeStatusOrderCommandHandler = {
   async execute(msg: Message): Promise<Message> {
