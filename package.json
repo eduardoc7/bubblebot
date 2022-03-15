@@ -25,7 +25,8 @@
     "dev": "ts-node-dev --respawn --transpile-only --ignore-watch node_modules src/index.ts",
     "lint": "eslint . --fix --ext .json",
     "build": "rimraf ./build && tsc",
-    "start": "npm run build && node build/index.js"
+    "start": "npm run build && node build/index.js",
+    "start:prod": "node build/index.js"
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",
