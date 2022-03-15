@@ -36,9 +36,20 @@ export default class OrderHandlerCache {
     // }
    */
   static async getOrderFromMessage(msg_from: string): Promise<IOrder> {
-    const order_json = await redisClient.get('order:' + msg_from);
+    let order_json: any;
+    try {
+      order_json = await redisClient.get('order:' + msg_from);
+    } catch (error) {
+      console.error('error ao pegar order do cache getOrderFromMessage');
+    }
 
-    const order_obj = Convert.toIOrder(order_json || '');
+    let order_obj: IOrder;
+    try {
+      order_obj = Convert.toIOrder(order_json || '');
+    } catch (error) {
+      console.error('error ao converter ordem pro tipo');
+    }
+
     return order_obj;
   }
 
