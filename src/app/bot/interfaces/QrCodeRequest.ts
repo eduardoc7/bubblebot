@@ -91,6 +91,7 @@ function transform(val: any, typ: any, getProps: any, key: any = ''): any {
       const typ = typs[i];
       try {
         return transform(val, typ, getProps);
+        // eslint-disable-next-line no-empty
       } catch (_) {}
     }
     return invalidValue(typs, val);
