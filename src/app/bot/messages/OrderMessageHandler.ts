@@ -9,7 +9,19 @@ export const OrderMessageHandler = {
     await chat.sendStateTyping();
 
     const order = await msg.getOrder();
-    const data = await OrderHandlerCache.prepareOrderToCache(msg, order);
+
+    const { total, products } = order;
+
+    const contact = await msg.getContact();
+
+    const data = await OrderHandlerCache.prepareOrderToCache({
+      total: Number(total),
+      name: contact.pushname,
+      items: products,
+      contact_number: await contact.getFormattedNumber(),
+      chatId: (await contact.getChat()).id._serialized,
+      location: {},
+    });
 
     await OrderHandlerCache.setOder('order:' + msg.from, data);
 
@@ -37,7 +49,7 @@ export const OrderMessageHandler = {
   async getStatusOrder(msg: Message): Promise<string> {
     const obj: IOrder = await OrderHandlerCache.getOrderFromMessage(msg.from);
 
-    return obj.status;
+    return obj.status ?? 'null';
   },
 
   async updateStatusOder(msg: Message, status: string): Promise<boolean> {

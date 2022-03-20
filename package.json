@@ -23,7 +23,7 @@
   },
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only --ignore-watch node_modules src/index.ts",
-    "test": "jest --detectOpenHandles",
+    "test": "jest --forceExit",
     "lint": "eslint . --fix --ext .json",
     "build": "rimraf ./build && tsc",
     "start": "npm run build && node build/index.js",

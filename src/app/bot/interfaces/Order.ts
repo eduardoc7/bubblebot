@@ -1,5 +1,3 @@
-import type { Product } from 'whatsapp-web.js';
-
 // To parse this data:
 //
 //   import { Convert, IOrder } from "./file";
@@ -10,27 +8,42 @@ import type { Product } from 'whatsapp-web.js';
 // match the expected interface, even if the JSON is valid.
 
 export interface IOrder {
-  identifier: string;
+  identifier?: string;
   name: string;
   contact_number: string;
-  payment_method: string;
-  payment_status: string;
-  delivery_method: string;
+  payment_method?: string;
+  payment_status?: string;
+  delivery_method?: string;
   total: number;
-  items: Array<Product>;
+  items: Array<Item>;
   location: Location;
-  status: string;
+  status?: string;
   chatId: string;
-  created_at: string;
-  updated_at: string;
+  created_at?: string;
+  updated_at?: string;
+}
+
+export interface Item {
+  /** Product Id */
+  id: string;
+  /** Price */
+  price?: string;
+  /** Product Thumbnail*/
+  thumbnailUrl: string;
+  /** Currency */
+  currency: string;
+  /** Product Name */
+  name: string;
+  /** Product Quantity*/
+  quantity: number;
 }
 
 export interface Location {
-  latitude: string;
-  longitude: string;
-  bairro: string;
+  latitude?: string;
+  longitude?: string;
+  bairro?: string;
 
-  taxa_entrega: number;
+  taxa_entrega?: number;
 }
 
 // Converts JSON strings to/from your types
@@ -210,12 +223,11 @@ const typeMap: any = {
   Item: o(
     [
       { json: 'id', js: 'id', typ: '' },
-      { json: 'price', js: 'price', typ: 0 },
+      { json: 'price', js: 'price', typ: '' },
       { json: 'thumbnailUrl', js: 'thumbnailUrl', typ: '' },
       { json: 'currency', js: 'currency', typ: '' },
       { json: 'name', js: 'name', typ: '' },
       { json: 'quantity', js: 'quantity', typ: 0 },
-      { json: 'data', js: 'data', typ: null },
     ],
     false,
   ),

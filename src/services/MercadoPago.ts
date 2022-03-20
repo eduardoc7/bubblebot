@@ -119,12 +119,12 @@ export class MercadoPago {
     items.push({
       title: 'Taxa de entrega',
       quantity: 1,
-      unit_price: Number(order.location.taxa_entrega) / 1000,
-      description: `Bairro: ${order.location.bairro}`,
+      unit_price: Number(order.location?.taxa_entrega) / 1000,
+      description: `Bairro: ${order.location?.bairro}`,
       sku_number: 'KS955RUR',
       category: `Produto`,
       unit_measure: 'unit',
-      total_amount: Number(order.location.taxa_entrega) / 1000,
+      total_amount: Number(order.location?.taxa_entrega) / 1000,
     });
 
     const data = {

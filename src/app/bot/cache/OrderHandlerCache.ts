@@ -1,5 +1,5 @@
 import { redisClient } from '../../../services/redis';
-import { Order as Orderwpp, Message } from 'whatsapp-web.js';
+import { Message } from 'whatsapp-web.js';
 import { IOrder, Convert } from '../interfaces/Order';
 import moment from 'moment';
 
@@ -79,34 +79,32 @@ export default class OrderHandlerCache {
     return true;
   }
 
-  static async prepareOrderToCache(message: Message, order: Orderwpp) {
-    const contact = await message.getContact();
-
+  static async prepareOrderToCache(order: IOrder) {
     const identifier = this.createIdentifierNameToOrder(
-      contact.pushname,
-      order.total,
-      await contact.getFormattedNumber(),
+      order.name,
+      order.total.toString(),
+      order.contact_number,
     );
 
     const now = moment().format('DD-MM-YYYY-hh:mm:ss');
 
     const data = {
       identifier: identifier,
-      name: contact.pushname,
-      contact_number: await contact.getFormattedNumber(),
-      payment_method: 'vazio',
-      payment_status: 'vazio',
-      delivery_method: 'vazio',
+      name: order.name,
+      contact_number: order.contact_number,
+      payment_method: 'N/A',
+      payment_status: 'N/A',
+      delivery_method: 'N/A',
       total: order.total,
-      items: order.products,
+      items: order.items,
       location: {
-        latitude: 'vazio',
-        longitude: 'vazio',
-        bairro: 'vazio',
+        latitude: 'N/A',
+        longitude: 'N/A',
+        bairro: 'N/A',
         taxa_entrega: 0,
       },
       status: 'created',
-      chatId: (await contact.getChat()).id._serialized,
+      chatId: order.chatId,
       created_at: now,
       updated_at: now,
     };
