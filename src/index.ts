@@ -1,5 +1,5 @@
 import { client } from './services/whatsapp';
-import { MessageHandler } from './app/bot/messages';
+import { MessageHandler } from './app/bot';
 import api from './app/api';
 
 client.on('message_create', MessageHandler);
