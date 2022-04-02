@@ -2,7 +2,7 @@ import { Knex } from 'knex';
 
 export async function up(knex: Knex): Promise<void> {
   return knex.schema.createTable('orders', (table) => {
-    table.increments('id').primary;
+    table.uuid('id').primary().defaultTo(knex.raw('(UUID())'));
     table.string('name').notNullable();
     table.string('identifier').notNullable();
     table.string('contact_number').notNullable();
@@ -12,9 +12,9 @@ export async function up(knex: Knex): Promise<void> {
     table.string('total').notNullable();
     table.json('items').notNullable();
     table.json('location').nullable();
-    table.string('status').notNullable().defaultTo('created');
+    table.string('status').defaultTo('created');
     table.string('chatId').notNullable();
-    table.timestamps();
+    table.timestamps(true, true);
   });
 }
 

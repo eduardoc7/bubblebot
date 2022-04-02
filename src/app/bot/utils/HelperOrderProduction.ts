@@ -4,6 +4,7 @@ import { client } from '../../../services/whatsapp';
 import { Convert, IOrder } from '../interfaces/Order';
 import HelperCurrency from './HelperCurrency';
 import dotenv from 'dotenv';
+import CreateOrder from '../../usecases/save-order';
 
 type OrderProductionProps = {
   message_from: string;
@@ -25,12 +26,6 @@ export class HelperOrderProduction {
     this.admin_production = process.env.ADMINS?.split(' ')[0] || '';
   }
 
-  /**
-   * criar uma tag de atualização da order
-   * se tiver ativa, nao manda mensagem pro admin
-   * e atualiza o pedido no grupo
-   * obs: vai ter que vir atualizado no cache
-   */
   private async saveOrderInGroup(): Promise<any> {
     const group_chat = await this.tryGetOrCreateChatGroup(this.group_chat_id);
     const order = await this.getOrderFromCache(this.message_from);
@@ -38,6 +33,14 @@ export class HelperOrderProduction {
 
     if (!this.isUpdated) {
       this.notifyOrderToAdminProduction(this.admin_production, order);
+    }
+
+    const instOrder = new CreateOrder(order, true);
+
+    try {
+      await instOrder.execute();
+    } catch (err) {
+      console.error(err);
     }
 
     await group_chat.sendMessage(message_to_send_group);
