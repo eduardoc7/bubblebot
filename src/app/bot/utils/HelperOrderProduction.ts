@@ -35,7 +35,7 @@ export class HelperOrderProduction {
       this.notifyOrderToAdminProduction(this.admin_production, order);
     }
 
-    const instOrder = new CreateOrder(order, true);
+    const instOrder = new CreateOrder(order);
 
     try {
       await instOrder.execute();
