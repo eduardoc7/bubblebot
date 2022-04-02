@@ -1,4 +1,4 @@
-import { IOrder, Item } from '../../app/bot/interfaces/Order';
+import { IOrder, Item } from '../../src/app/bot/interfaces/Order';
 
 export function createMessageOrder(): IOrder {
   const items: Item[] = [];

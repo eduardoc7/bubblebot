@@ -1,5 +1,5 @@
-import OrderHandlerCache from '../app/bot/cache/OrderHandlerCache';
-import { Convert, IOrder } from '../app/bot/interfaces/Order';
+import OrderHandlerCache from '../src/app/bot/cache/OrderHandlerCache';
+import { Convert, IOrder } from '../src/app/bot/interfaces/Order';
 import { createMessageOrder } from './factories/MessageOrderFactory';
 
 describe('create a new order', () => {
