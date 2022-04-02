@@ -11,6 +11,9 @@ const greeting_messages = [
   'noite',
   'hey',
   'bem',
+  'bomdia',
+  'boanoite',
+  'boatarde',
 ];
 
 const greeting_message_to_reply = `Oiii. É um prazer tê-lo aqui. Seja muito bem vindo ao canal de atendimento e compras da ⭐ *Magic Bubbles* ⭐
