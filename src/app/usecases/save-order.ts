@@ -15,6 +15,7 @@ export default class CreateOrder {
     );
 
     const chatId = `${this.order.contact_number}@c.us`;
+    const newChatId = chatId.replace(/[^A-Z0-9]/gi, '');
 
     const items_array = this.order.items.map((item: Item) => {
       return {
@@ -33,7 +34,7 @@ export default class CreateOrder {
         payment_status: this.order.payment_status,
         delivery_method: this.order.delivery_method,
         items: this.order.items,
-        chatId,
+        chatId: newChatId,
         location: this.order.location,
       });
 
