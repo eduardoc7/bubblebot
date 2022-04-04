@@ -1,6 +1,6 @@
 import { queryOrder } from '../src/app/usecases/query-orders';
 
-describe('create a new order', () => {
+describe('create a new report orders', () => {
   it('should be able to get the report data from database', async () => {
     const report = `
     Número de pedidos: ${await queryOrder.selectTotalOrders()}
@@ -16,8 +16,6 @@ describe('create a new order', () => {
       )}
     `;
 
-    console.log(report);
-
-    expect(queryOrder).toBeTruthy();
+    expect(report).toBeTruthy();
   });
 });

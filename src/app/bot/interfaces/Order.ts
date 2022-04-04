@@ -6,6 +6,7 @@
 //
 // These functions will throw an error if the JSON doesn't
 // match the expected interface, even if the JSON is valid.
+// https://app.quicktype.io/
 
 export interface IOrder {
   identifier?: string;
@@ -25,13 +26,13 @@ export interface IOrder {
 
 export interface Item {
   /** Product Id */
-  id: string;
+  id?: string;
   /** Price */
   price?: string;
   /** Product Thumbnail*/
-  thumbnailUrl: string;
+  thumbnailUrl?: string;
   /** Currency */
-  currency: string;
+  currency?: string;
   /** Product Name */
   name: string;
   /** Product Quantity*/
@@ -200,20 +201,23 @@ function o(props: any[], additional: any) {
 function r(name: string) {
   return { ref: name };
 }
+function u(...typs: any[]) {
+  return { unionMembers: typs };
+}
 
 const typeMap: any = {
   IOrder: o(
     [
-      { json: 'identifier', js: 'identifier', typ: '' },
+      { json: 'identifier', js: 'identifier', typ: u(undefined, '') },
       { json: 'name', js: 'name', typ: '' },
       { json: 'contact_number', js: 'contact_number', typ: '' },
-      { json: 'payment_method', js: 'payment_method', typ: '' },
-      { json: 'payment_status', js: 'payment_status', typ: '' },
-      { json: 'delivery_method', js: 'delivery_method', typ: '' },
+      { json: 'payment_method', js: 'payment_method', typ: u(undefined, '') },
+      { json: 'payment_status', js: 'payment_status', typ: u(undefined, '') },
+      { json: 'delivery_method', js: 'delivery_method', typ: u(undefined, '') },
       { json: 'total', js: 'total', typ: 0 },
       { json: 'items', js: 'items', typ: a(r('Item')) },
       { json: 'location', js: 'location', typ: r('Location') },
-      { json: 'status', js: 'status', typ: '' },
+      { json: 'status', js: 'status', typ: u(undefined, '') },
       { json: 'chatId', js: 'chatId', typ: '' },
       { json: 'created_at', js: 'created_at', typ: '' },
       { json: 'updated_at', js: 'updated_at', typ: '' },
@@ -222,10 +226,10 @@ const typeMap: any = {
   ),
   Item: o(
     [
-      { json: 'id', js: 'id', typ: '' },
+      { json: 'id', js: 'id', typ: u(undefined, '') },
       { json: 'price', js: 'price', typ: '' },
-      { json: 'thumbnailUrl', js: 'thumbnailUrl', typ: '' },
-      { json: 'currency', js: 'currency', typ: '' },
+      { json: 'thumbnailUrl', js: 'thumbnailUrl', typ: u(undefined, '') },
+      { json: 'currency', js: 'currency', typ: u(undefined, '') },
       { json: 'name', js: 'name', typ: '' },
       { json: 'quantity', js: 'quantity', typ: 0 },
     ],
@@ -233,10 +237,10 @@ const typeMap: any = {
   ),
   Location: o(
     [
-      { json: 'latitude', js: 'latitude', typ: '' },
-      { json: 'longitude', js: 'longitude', typ: '' },
-      { json: 'bairro', js: 'bairro', typ: '' },
-      { json: 'taxa_entrega', js: 'taxa_entrega', typ: 0 },
+      { json: 'latitude', js: 'latitude', typ: u(undefined, '') },
+      { json: 'longitude', js: 'longitude', typ: u(undefined, '') },
+      { json: 'bairro', js: 'bairro', typ: u(undefined, '') },
+      { json: 'taxa_entrega', js: 'taxa_entrega', typ: u(undefined, 0) },
     ],
     false,
   ),

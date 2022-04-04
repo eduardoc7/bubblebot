@@ -47,7 +47,7 @@ export default class OrderHandlerCache {
     try {
       order_obj = Convert.toIOrder(order_json || '');
     } catch (error) {
-      console.error('error ao converter ordem pro tipo');
+      console.error('error ao converter ordem pro tipo ', error, order_json);
     }
 
     return order_obj;

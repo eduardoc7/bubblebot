@@ -9,6 +9,11 @@ import db from '../../database/connection';
  * total faltando pagar
  */
 export const queryOrder = {
+  async selectOrderById(id: number) {
+    const query = await db('orders').where('id', id).first();
+
+    return query;
+  },
   async selectAndCountByStatus(status: string) {
     const query = await db('orders')
       .where('status', status)

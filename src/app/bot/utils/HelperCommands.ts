@@ -1,10 +1,7 @@
 import dotenv from 'dotenv';
-import moment from 'moment';
 import { Message } from 'whatsapp-web.js';
 import { client } from '../../../services/whatsapp';
-import OrderHandlerCache from '../cache/OrderHandlerCache';
-import { IOrder } from '../interfaces/Order';
-import { HelperOrderProduction } from './HelperOrderProduction';
+import { UpdateOrder } from '../../usecases/update-order';
 
 dotenv.config();
 
@@ -21,27 +18,25 @@ export const HelperCommands = {
     return false;
   },
   async updateOrderStatusAndNotify(
-    notification_to: string,
+    order_id: number,
     status_to_update: string,
     msg: Message,
   ): Promise<Message> {
-    let obj_order: IOrder;
+    let notification_to;
     try {
-      obj_order = await OrderHandlerCache.getOrderFromMessage(notification_to);
+      notification_to = await UpdateOrder.updateOrderByStatus(
+        order_id,
+        status_to_update,
+      );
     } catch (e) {
-      console.log(e);
+      console.error('Error updating order status: ', e);
+
       return msg.reply('Ops! Ocorreu um erro ao buscar esse pedido.');
     }
 
-    const now = moment().format('DD-MM-YYYY-hh:mm:ss');
-    obj_order.status = status_to_update;
-    obj_order.updated_at = now;
-
-    await OrderHandlerCache.setOder(
-      'order:' + msg.from,
-      JSON.stringify(obj_order),
-    );
-
+    /**
+     * @todo adicionar localização na mensagem de retirada
+     */
     let message_to_reply;
     switch (status_to_update) {
       case 'a caminho':
@@ -55,18 +50,17 @@ export const HelperCommands = {
         \n👉Instagram - https://www.instagram.com/magicbubblesart/
         \n👉Facebook - https://www.facebook.com/magicbubbles`;
         break;
+      case 'retirada':
+        message_to_reply =
+          '\nNotícia boa! Seu pedido está pronto para retirada.';
+        break;
       default:
         message_to_reply = '';
     }
 
-    HelperOrderProduction.create({
-      message_from: notification_to,
-      isUpdated: true,
-    });
-
     return await client.sendMessage(
       notification_to,
-      `Eiii, passamos pra avisar que o seu pedido *N° ${obj_order.identifier}* foi atualizado! ${message_to_reply}
+      `Eiii, passamos pra avisar que o seu pedido conosco foi atualizado! ${message_to_reply}
       \n\nVocê também pode digitar *#ver* para visualizar mais informações sobre seu pedido.`,
     );
   },

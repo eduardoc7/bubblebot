@@ -11,7 +11,6 @@ import { CreatedOrderStatusHandler } from './messages/CreatedOrderStatusHandler'
 import { OrderTaxaDeliveryHandler } from './messages/OrderTaxaDeliveryHandler';
 import { OrderPaymentRequired } from './messages/OrderPaymentRequired';
 import { OrderFinishedStatusHandler } from './messages/OrderFinishedStatusHandler';
-import { ReportOrdersCommandHandler } from './messages/commands/ReportOrdersCommandHandler';
 
 import { FinishOrderCommandHandler } from './messages/commands/FinishOrderCommandHandler';
 import { DoubtCommandHandler } from './messages/commands/DoubtCommandHandler';
@@ -21,8 +20,8 @@ import { InfoOrderCommandHandler } from './messages/commands/InfoOrderCommandHan
 import { CancelOrderCommandHandler } from './messages/commands/CancelOrderCommandHandler';
 import { HelpCommandHandler } from './messages/commands/HelpCommandHandler';
 import { DoneAtendimentoHandler } from './messages/commands/DoneAtendimentoHandler';
-import { NotifyOrderHandler } from './messages/commands/NotifyOrderCommandHandler';
 import { UpdateOrderStatusCommand } from './messages/commands/UpdateOrderStatusCommand';
+import { ReportOrdersCommandHandler } from './messages/commands/ReportOrdersCommandHandler';
 
 export const MessageHandler = async (message: Message): Promise<void> => {
   console.log(message);
@@ -38,7 +37,6 @@ export const MessageHandler = async (message: Message): Promise<void> => {
     await messageDispatcher.register('cancelar', CancelOrderCommandHandler);
     await messageDispatcher.register('ajuda', HelpCommandHandler);
     await messageDispatcher.register('encerrar', DoneAtendimentoHandler);
-    await messageDispatcher.register('entrega', NotifyOrderHandler);
     await messageDispatcher.register('atualizar', UpdateOrderStatusCommand);
     await messageDispatcher.register('pedidos', ReportOrdersCommandHandler);
 

@@ -14,8 +14,10 @@ export default class CreateOrder {
       this.order.contact_number,
     );
 
-    const chatId = `${this.order.contact_number}@c.us`;
-    const newChatId = chatId.replace(/[^A-Z0-9]/gi, '');
+    const chatId = `${this.order.contact_number.replace(
+      /[^A-Z0-9]/gi,
+      '',
+    )}@c.us`;
 
     const items_array = this.order.items.map((item: Item) => {
       return {
@@ -29,12 +31,13 @@ export default class CreateOrder {
       const data = await OrderHandlerCache.prepareOrderToCache({
         total: Number(this.order.total),
         name: this.order.name,
+        identifier,
         contact_number: this.order.contact_number,
         payment_method: this.order.payment_method,
         payment_status: this.order.payment_status,
         delivery_method: this.order.delivery_method,
         items: this.order.items,
-        chatId: newChatId,
+        chatId,
         location: this.order.location,
       });
 
@@ -52,7 +55,6 @@ export default class CreateOrder {
         total: this.order.total,
         items: JSON.stringify(items_array),
         location: this.order.location,
-        status: this.order.status,
         chatId,
       });
 

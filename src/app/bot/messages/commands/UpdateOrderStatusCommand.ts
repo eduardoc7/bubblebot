@@ -13,22 +13,22 @@ export const UpdateOrderStatusCommand = {
     }
 
     const splited_body = msg.body.split(' ');
-    const notification_to = splited_body[1];
+    const order_id = splited_body[1];
     const status_to_update = splited_body[2];
-    if (notification_to === undefined || status_to_update === undefined) {
+    if (order_id === undefined || status_to_update === undefined) {
       return msg.reply(
-        'Para atualizar um status, digite *#atualizar <numero da pessoa ex: 5541000000000> <status>* ❌',
+        'Para atualizar um status, digite *#atualizar <id do pedido ex: *5*> <status>* ❌',
       );
     }
 
-    const notification_to_formated = notification_to + '@c.us';
-
     await HelperCommands.updateOrderStatusAndNotify(
-      notification_to_formated,
+      Number(order_id),
       status_to_update,
       msg,
     );
 
-    return msg.reply('Entrega notificada com sucesso ✅');
+    return msg.reply(
+      'Status do pedido atualizado e notificado com sucesso! ✅',
+    );
   },
 };
