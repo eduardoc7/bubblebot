@@ -17,6 +17,8 @@ export const ReportOrdersCommandHandler = {
     Número de pedidos: *${await queryOrder.selectTotalOrders()}*
       Em produção: *${await queryOrder.selectAndCountByStatus('producao')}*
       Finalizados: *${await queryOrder.selectAndCountByStatus('finalizado')}*
+      Entrega: *${await queryOrder.selectAndCountByStatus('entrega')}*
+      Retirada: *${await queryOrder.selectAndCountByStatus('retirada')}*
       Faltando pagar: *${await queryOrder.selectByPaymentStatus('pendente')}*
     \n
     Total R$ pedidos:
