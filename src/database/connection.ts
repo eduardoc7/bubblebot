@@ -1,13 +1,16 @@
 import knex from 'knex';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const db = knex({
   client: 'mysql',
   connection: {
-    host: '127.0.0.1',
+    host: process.env.MYSQL_HOST,
     port: 3306,
-    user: 'root',
-    password: '7CXCj0lbBFSZ3uaM5NxAFW1WjcAM1PQD7r5uMztA',
-    database: 'bubblebot',
+    user: process.env.MYSQL_USER,
+    password: process.env.MYSQL_PASSWORD,
+    database: process.env.MYSQL_DATABASE,
   },
   useNullAsDefault: true,
 });
