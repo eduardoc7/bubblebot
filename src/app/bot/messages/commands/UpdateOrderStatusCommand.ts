@@ -17,7 +17,7 @@ export const UpdateOrderStatusCommand = {
     const status_to_update = splited_body[2];
     if (order_id === undefined || status_to_update === undefined) {
       return msg.reply(
-        'Para atualizar um status, digite *#atualizar <id do pedido ex: *5*> <status>* ❌',
+        'Para atualizar um status, digite *#atualiza <id do pedido ex: *5*> <status>* ❌',
       );
     }
 

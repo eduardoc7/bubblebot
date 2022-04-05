@@ -25,6 +25,8 @@ export const UpdateOrder = {
 
     const chatId = order_data_from_db.chatId;
     let obj_order: IOrder;
+
+    console.log('MEU CHAT IDDD: ', chatId);
     try {
       obj_order = await OrderHandlerCache.getOrderFromMessage(chatId);
     } catch (e) {

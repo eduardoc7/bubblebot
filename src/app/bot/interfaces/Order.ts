@@ -9,6 +9,7 @@
 // https://app.quicktype.io/
 
 export interface IOrder {
+  id?: number;
   identifier?: string;
   name: string;
   contact_number: string;
@@ -37,6 +38,8 @@ export interface Item {
   name: string;
   /** Product Quantity*/
   quantity: number;
+
+  data?: null;
 }
 
 export interface Location {
@@ -209,6 +212,7 @@ const typeMap: any = {
   IOrder: o(
     [
       { json: 'identifier', js: 'identifier', typ: u(undefined, '') },
+      { json: 'id', js: 'id', typ: u(undefined, 0) },
       { json: 'name', js: 'name', typ: '' },
       { json: 'contact_number', js: 'contact_number', typ: '' },
       { json: 'payment_method', js: 'payment_method', typ: u(undefined, '') },
@@ -219,19 +223,20 @@ const typeMap: any = {
       { json: 'location', js: 'location', typ: r('Location') },
       { json: 'status', js: 'status', typ: u(undefined, '') },
       { json: 'chatId', js: 'chatId', typ: '' },
-      { json: 'created_at', js: 'created_at', typ: '' },
-      { json: 'updated_at', js: 'updated_at', typ: '' },
+      { json: 'created_at', js: 'created_at', typ: u(undefined, '', 0) },
+      { json: 'updated_at', js: 'updated_at', typ: u(undefined, '', 0) },
     ],
     false,
   ),
   Item: o(
     [
       { json: 'id', js: 'id', typ: u(undefined, '') },
-      { json: 'price', js: 'price', typ: '' },
+      { json: 'price', js: 'price', typ: u(undefined, '', 0) },
       { json: 'thumbnailUrl', js: 'thumbnailUrl', typ: u(undefined, '') },
       { json: 'currency', js: 'currency', typ: u(undefined, '') },
       { json: 'name', js: 'name', typ: '' },
       { json: 'quantity', js: 'quantity', typ: 0 },
+      { json: 'data', js: 'data', typ: u(undefined, '', null) },
     ],
     false,
   ),

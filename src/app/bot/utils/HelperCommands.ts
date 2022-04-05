@@ -39,7 +39,7 @@ export const HelperCommands = {
      */
     let message_to_reply;
     switch (status_to_update) {
-      case 'a caminho':
+      case 'entrega':
         message_to_reply =
           '\nAgora ele está a caminho da sua localização, por favor, prepare-se para recebe-lo';
         break;

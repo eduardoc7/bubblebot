@@ -22,10 +22,10 @@ import { HelpCommandHandler } from './messages/commands/HelpCommandHandler';
 import { DoneAtendimentoHandler } from './messages/commands/DoneAtendimentoHandler';
 import { UpdateOrderStatusCommand } from './messages/commands/UpdateOrderStatusCommand';
 import { ReportOrdersCommandHandler } from './messages/commands/ReportOrdersCommandHandler';
+import { LoadOrdersFromDbToGroup } from './messages/commands/LoadOrdersFromDbToGroup';
 
 export const MessageHandler = async (message: Message): Promise<void> => {
   console.log(message);
-
   let dispatchName = '';
   if (!message.fromMe) {
     // handlers by commands
@@ -34,11 +34,12 @@ export const MessageHandler = async (message: Message): Promise<void> => {
     await messageDispatcher.register('bot', AboutBotCommandHandler);
     await messageDispatcher.register('car', CarTutorialCommandHandler);
     await messageDispatcher.register('ver', InfoOrderCommandHandler);
-    await messageDispatcher.register('cancelar', CancelOrderCommandHandler);
+    await messageDispatcher.register('cancela', CancelOrderCommandHandler);
     await messageDispatcher.register('ajuda', HelpCommandHandler);
-    await messageDispatcher.register('encerrar', DoneAtendimentoHandler);
-    await messageDispatcher.register('atualizar', UpdateOrderStatusCommand);
+    await messageDispatcher.register('encerra', DoneAtendimentoHandler);
+    await messageDispatcher.register('atualiza', UpdateOrderStatusCommand);
     await messageDispatcher.register('pedidos', ReportOrdersCommandHandler);
+    await messageDispatcher.register('mostra', LoadOrdersFromDbToGroup);
 
     // handlers by messages types
     await messageDispatcher.register('order', OrderMessageHandler);

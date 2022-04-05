@@ -14,6 +14,11 @@ export const queryOrder = {
 
     return query;
   },
+  async selectAllOrdersRecords() {
+    const query = await db.select().table('orders');
+
+    return query;
+  },
   async selectAndCountByStatus(status: string) {
     const query = await db('orders')
       .where('status', status)

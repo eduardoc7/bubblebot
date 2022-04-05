@@ -17,7 +17,7 @@ export const DoneAtendimentoHandler = {
     const atendido = splited_body[1];
     if (atendido === undefined) {
       return msg.reply(
-        'Para encerrar um atendimento, por favor digite *#encerrar <nome de quem solicitou>* ❌',
+        'Para encerrar um atendimento, por favor digite *#encerra <nome de quem solicitou>* ❌',
       );
     }
 
