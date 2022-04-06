@@ -5,7 +5,7 @@ import { redisClient } from '../../../services/redis';
 import { Convert, IOrder } from '../interfaces/Order';
 import { HelperOrderProduction } from './HelperOrderProduction';
 import { sha512 } from 'sha512-crypt-ts';
-import { Chat, Message, MessageMedia } from 'whatsapp-web.js';
+import { Message, MessageMedia } from 'whatsapp-web.js';
 import { MercadoPago } from '../../../services/MercadoPago';
 import { IResponse } from '../interfaces/QrCodeRequest';
 
@@ -52,13 +52,17 @@ export const HelperPaymentPix = {
   async genPaymentPixFromOrder(
     order: IOrder,
     msg_from: string,
+    payment_from_command?: boolean,
   ): Promise<Message> {
     await client.sendMessage(
       msg_from,
       'Aguarde alguns instantes enquanto preparamos o seu QR Code para pagamento 🚀',
     );
 
-    const MercadoPagoService = MercadoPago.create({ order_data: order });
+    const MercadoPagoService = MercadoPago.create({
+      order_data: order,
+      isOrderFromDb: payment_from_command,
+    });
     const { data }: IResponse = await MercadoPagoService.generateQrCode();
     const qrcode_image = await MercadoPagoService.getImgFromQrCodeData(
       data.qr_data,
@@ -83,7 +87,7 @@ export const HelperPaymentPix = {
       );
     }
 
-    return client.sendMessage(
+    return await client.sendMessage(
       msg_from,
       `Agradecemos a sua escolha por Pix, isso nos ajuda a crescer. Aguardaremos a confirmação do pagamento para prosseguir.`,
     );

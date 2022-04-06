@@ -26,6 +26,7 @@ import { UpdateOrderStatusCommand } from './messages/commands/UpdateOrderStatusC
 import { ReportOrdersCommandHandler } from './messages/commands/ReportOrdersCommandHandler';
 import { LoadOrdersFromDbToGroup } from './messages/commands/LoadOrdersFromDbToGroup';
 import { UpdatePaymentStatusCommand } from './messages/commands/UpdatePaymentStatusCommand';
+import { CreatePaymentPixCommand } from './messages/commands/CreatePaymentPixCommand';
 
 export const MessageHandler = async (message: Message): Promise<void> => {
   console.log(message);
@@ -44,6 +45,7 @@ export const MessageHandler = async (message: Message): Promise<void> => {
     await messageDispatcher.register('pedidos', ReportOrdersCommandHandler);
     await messageDispatcher.register('mostra', LoadOrdersFromDbToGroup);
     await messageDispatcher.register('pay', UpdatePaymentStatusCommand);
+    await messageDispatcher.register('pix', CreatePaymentPixCommand);
 
     // handlers by messages types
     await messageDispatcher.register('order', OrderMessageHandler);

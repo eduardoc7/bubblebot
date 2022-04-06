@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-import type { IOrder } from '../app/bot/interfaces/Order';
+import type { IOrder, Item } from '../app/bot/interfaces/Order';
 import {
   IQrCodeRequest,
   Convert,
@@ -14,6 +14,7 @@ import crypto from 'crypto';
 
 type MercadoPagoProps = {
   order_data: IOrder;
+  isOrderFromDb?: boolean;
 };
 
 export class MercadoPago {
@@ -23,6 +24,7 @@ export class MercadoPago {
   private callback_url;
   private external_reference;
   private hash_callback: any;
+  private isOrderFromDb?: boolean;
 
   private constructor(props: MercadoPagoProps) {
     dotenv.config();
@@ -32,6 +34,7 @@ export class MercadoPago {
     this.api_access_key = process.env.ACCESS_KEY_MP;
     this.callback_url = process.env.PATH_CALLBACK;
     this.external_reference = uuidv4();
+    this.isOrderFromDb = props.isOrderFromDb;
   }
 
   public async saveQrCodeOnCache(
@@ -101,8 +104,18 @@ export class MercadoPago {
   private prepareJsonToSendRequest(order: IOrder): IQrCodeRequest {
     this.setHashNotifictionUrl();
 
+    let location;
+    let car_items;
+    if (this.isOrderFromDb) {
+      console.log('AAADSKLADKLJSA');
+      location = JSON.parse(order.location);
+      car_items = JSON.parse(order.items);
+    } else {
+      location = order.location;
+      car_items = order.items;
+    }
     const items: any = [];
-    order.items.map((item, index) => {
+    car_items.map((item: Item, index: number) => {
       const total_amount_items = (Number(item.price) / 1000) * item.quantity;
       items[index] = {
         title: item.name,
@@ -119,12 +132,12 @@ export class MercadoPago {
     items.push({
       title: 'Taxa de entrega',
       quantity: 1,
-      unit_price: Number(order.location?.taxa_entrega) / 1000,
-      description: `Bairro: ${order.location?.bairro}`,
+      unit_price: Number(location?.taxa_entrega) / 1000,
+      description: `Bairro: ${location?.bairro}`,
       sku_number: 'KS955RUR',
       category: `Produto`,
       unit_measure: 'unit',
-      total_amount: Number(order.location?.taxa_entrega) / 1000,
+      total_amount: Number(location?.taxa_entrega) / 1000,
     });
 
     const data = {
