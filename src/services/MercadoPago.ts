@@ -104,6 +104,7 @@ export class MercadoPago {
   private prepareJsonToSendRequest(order: IOrder): IQrCodeRequest {
     this.setHashNotifictionUrl();
 
+    console.log('ORDERRR ', order);
     let location;
     let car_items;
     if (this.isOrderFromDb) {
@@ -119,6 +120,7 @@ export class MercadoPago {
     }
     const items: any = [];
     car_items.map((item: Item, index: number) => {
+      console.log('ITEM', item);
       const total_amount_items = (Number(item.price) / 1000) * item.quantity;
       items[index] = {
         title: item.name,
@@ -131,17 +133,18 @@ export class MercadoPago {
         total_amount: Number(total_amount_items.toFixed(2)),
       };
     });
-
-    items.push({
-      title: 'Taxa de entrega',
-      quantity: 1,
-      unit_price: Number(location?.taxa_entrega) / 1000,
-      description: `Bairro: ${location?.bairro}`,
-      sku_number: 'KS955RUR',
-      category: `Produto`,
-      unit_measure: 'unit',
-      total_amount: Number(location?.taxa_entrega) / 1000,
-    });
+    if (location?.taxa_entrega !== undefined) {
+      items.push({
+        title: 'Taxa de entrega',
+        quantity: 1,
+        unit_price: Number(location?.taxa_entrega) / 1000 ?? 0,
+        description: `Bairro: ${location?.bairro}`,
+        sku_number: 'KS955RUR',
+        category: `Produto`,
+        unit_measure: 'unit',
+        total_amount: Number(location?.taxa_entrega) / 1000 ?? 0,
+      });
+    }
 
     const data = {
       external_reference: this.getExternalReference(),
@@ -152,6 +155,8 @@ export class MercadoPago {
       notification_url: `${this.callback_url}/${this.getHashNotifictionUrl()}`,
       items: items,
     };
+
+    console.log('DATA ', data);
 
     const QrCodeRequest = Convert.toIQrCodeRequest(JSON.stringify(data));
 

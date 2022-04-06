@@ -6,7 +6,6 @@ export default class CreateOrder {
   constructor(private order: IOrder, private saveCache?: boolean) {}
 
   async execute() {
-    console.log('MY ORDER:: ', this.order);
     const trx = await db.transaction();
 
     const identifier = OrderHandlerCache.createIdentifierNameToOrder(
