@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-import { Message } from 'whatsapp-web.js';
+import { Message, Location } from 'whatsapp-web.js';
 import { client } from '../../../services/whatsapp';
 import { UpdateOrder } from '../../usecases/update-order';
 
@@ -38,6 +38,7 @@ export const HelperCommands = {
      * @todo adicionar localização na mensagem de retirada
      */
     let message_to_reply;
+    let location;
     switch (status_to_update) {
       case 'entrega':
         message_to_reply =
@@ -52,10 +53,17 @@ export const HelperCommands = {
         break;
       case 'retirada':
         message_to_reply =
-          '\nNotícia boa! Seu pedido está pronto para retirada.';
+          '\nNotícia boa! Seu pedido está pronto para retirada na localização acima.';
+        location = new Location(
+          Number(process.env.LOCATION_LAT) ?? 0,
+          Number(process.env.LOCATION_LON) ?? 0,
+        );
         break;
       default:
         message_to_reply = '';
+    }
+    if (location !== undefined) {
+      await client.sendMessage(notification_to, location || '');
     }
 
     return await client.sendMessage(
