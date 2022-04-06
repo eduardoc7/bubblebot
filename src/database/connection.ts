@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const db = knex({
-  client: 'mysql',
+  client: 'mysql2',
   connection: {
     host: process.env.MYSQL_HOST,
     port: 3306,

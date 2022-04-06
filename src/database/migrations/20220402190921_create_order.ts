@@ -10,8 +10,8 @@ export async function up(knex: Knex): Promise<void> {
     table.string('payment_status').nullable();
     table.string('delivery_method').nullable();
     table.string('total').notNullable();
-    table.json('items').notNullable();
-    table.json('location').nullable();
+    table.text('items').notNullable();
+    table.text('location').nullable();
     table.string('status').defaultTo('created');
     table.string('chatId').notNullable();
     table.timestamps(true, true);

@@ -15,6 +15,7 @@
     "mercadopago": "^1.5.12",
     "moment": "^2.29.1",
     "mysql": "^2.18.1",
+    "mysql2": "^2.3.3",
     "qrcode": "^1.5.0",
     "qrcode-terminal": "^0.12.0",
     "redis": "^4.0.4",
