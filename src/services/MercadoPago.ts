@@ -112,7 +112,7 @@ export class MercadoPago {
         sku_number: 'KS955RUR',
         category: `produto:${item.name}`,
         unit_measure: 'unit',
-        total_amount: total_amount_items.toFixed(2),
+        total_amount: Number(total_amount_items.toFixed(2)),
       };
     });
 

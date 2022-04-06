@@ -190,6 +190,10 @@ function r(name: string) {
   return { ref: name };
 }
 
+function u(...typs: any[]) {
+  return { unionMembers: typs };
+}
+
 const typeMap: any = {
   IQrCodeRequest: o(
     [
@@ -198,7 +202,7 @@ const typeMap: any = {
       { json: 'description', js: 'description', typ: '' },
       { json: 'notification_url', js: 'notification_url', typ: '' },
       { json: 'expiration_date', js: 'expiration_date', typ: Date },
-      { json: 'total_amount', js: 'total_amount', typ: 0 },
+      { json: 'total_amount', js: 'total_amount', typ: u('', 0) },
       { json: 'items', js: 'items', typ: a(r('Item')) },
     ],
     false,

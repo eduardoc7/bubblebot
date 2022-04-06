@@ -2,9 +2,12 @@ import { Convert as ConvertQr } from '../interfaces/IQrCodeCache';
 import { client } from '../../../services/whatsapp';
 import { production_message } from '../utils/ReturnsMessages';
 import { redisClient } from '../../../services/redis';
-import { Convert } from '../interfaces/Order';
+import { Convert, IOrder } from '../interfaces/Order';
 import { HelperOrderProduction } from './HelperOrderProduction';
 import { sha512 } from 'sha512-crypt-ts';
+import { Chat, Message, MessageMedia } from 'whatsapp-web.js';
+import { MercadoPago } from '../../../services/MercadoPago';
+import { IResponse } from '../interfaces/QrCodeRequest';
 
 export const HelperPaymentPix = {
   async updateStatusPaymentOrder(
@@ -45,6 +48,45 @@ export const HelperPaymentPix = {
     }
 
     return true;
+  },
+  async genPaymentPixFromOrder(
+    order: IOrder,
+    msg_from: string,
+  ): Promise<Message> {
+    await client.sendMessage(
+      msg_from,
+      'Aguarde alguns instantes enquanto preparamos o seu QR Code para pagamento 🚀',
+    );
+
+    const MercadoPagoService = MercadoPago.create({ order_data: order });
+    const { data }: IResponse = await MercadoPagoService.generateQrCode();
+    const qrcode_image = await MercadoPagoService.getImgFromQrCodeData(
+      data.qr_data,
+    );
+
+    const formated_img = qrcode_image.split(',').pop();
+    const media = new MessageMedia('image/png', formated_img || '');
+
+    if (media) {
+      await MercadoPagoService.saveQrCodeOnCache(data.qr_data, msg_from);
+
+      await client.sendMessage(msg_from, media);
+      await client.sendMessage(
+        msg_from,
+        `Você também pode usar o Pix copia e cola, copiando a mensagem abaixo e colocando no área Pix do seu banco ;).`,
+      );
+      await client.sendMessage(msg_from, data.qr_data);
+    } else {
+      await client.sendMessage(
+        msg_from,
+        'Não foi possível gerar um pagamento Pix automático, entraremos em contato em breve!',
+      );
+    }
+
+    return client.sendMessage(
+      msg_from,
+      `Agradecemos a sua escolha por Pix, isso nos ajuda a crescer. Aguardaremos a confirmação do pagamento para prosseguir.`,
+    );
   },
 
   async checkHashCallbackIsValid(

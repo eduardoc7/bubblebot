@@ -9,6 +9,7 @@ import { production_message } from '../utils/ReturnsMessages';
 import { HelperOrderProduction } from '../utils/HelperOrderProduction';
 import { MercadoPago } from '../../../services/MercadoPago';
 import { IResponse } from '../interfaces/QrCodeRequest';
+import { HelperPaymentPix } from '../utils/HelperPaymentPix';
 
 export const OrderPaymentHandler = {
   async execute(msg: Message): Promise<Message> {
@@ -29,38 +30,10 @@ export const OrderPaymentHandler = {
           HelperStr.formatMessageToCheck(msg.body),
         );
       }
-      chat.sendMessage(
-        'Aguarde alguns instantes enquanto preparamos o seu QR Code para pagamento 🚀',
-      );
 
       const obj: IOrder = await OrderHandlerCache.getOrderFromMessage(msg.from);
 
-      const MercadoPagoService = MercadoPago.create({ order_data: obj });
-      const { data }: IResponse = await MercadoPagoService.generateQrCode();
-      const qrcode_image = await MercadoPagoService.getImgFromQrCodeData(
-        data.qr_data,
-      );
-
-      const formated_img = qrcode_image.split(',').pop();
-      const media = new MessageMedia('image/png', formated_img || '');
-
-      if (media) {
-        await MercadoPagoService.saveQrCodeOnCache(data.qr_data, msg.from);
-
-        await chat.sendMessage(media);
-        await chat.sendMessage(
-          `Você também pode usar o Pix copia e cola, copiando a mensagem abaixo e colocando no área Pix do seu banco ;).`,
-        );
-        await chat.sendMessage(data.qr_data);
-      } else {
-        chat.sendMessage(
-          'Não foi possível gerar um pagamento Pix automático, entraremos em contato em breve!',
-        );
-      }
-
-      return msg.reply(
-        `Agradecemos a sua escolha por Pix, isso nos ajuda a crescer. Aguardaremos a confirmação do pagamento para prosseguir.`,
-      );
+      await HelperPaymentPix.genPaymentPixFromOrder(obj, msg.from);
     } else if (
       HelperStr.formatMessageToCheck(msg.body) == 'cartao' ||
       HelperStr.formatMessageToCheck(msg.body) == 'dinheiro'
