@@ -107,8 +107,11 @@ export class MercadoPago {
     let location;
     let car_items;
     if (this.isOrderFromDb) {
-      console.log('AAADSKLADKLJSA');
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       location = JSON.parse(order.location);
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       car_items = JSON.parse(order.items);
     } else {
       location = order.location;

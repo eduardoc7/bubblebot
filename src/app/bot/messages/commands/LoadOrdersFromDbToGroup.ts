@@ -30,7 +30,11 @@ export const LoadOrdersFromDbToGroup = {
 
     const result = await queryOrder.selectAllOrdersRecords();
     result.map(async (item: IOrder) => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       const location = JSON.parse(item.location);
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       const car_items = JSON.parse(item.items);
 
       const items_to_print = car_items.map((item: Item) => {
