@@ -1,6 +1,7 @@
 import { Message } from 'whatsapp-web.js';
 import { queryOrder } from '../../../usecases/query-orders';
 import { HelperCommands } from '../../utils/HelperCommands';
+import HelperCurrency from '../../utils/HelperCurrency';
 
 export const ReportOrdersCommandHandler = {
   async execute(msg: Message): Promise<Message> {
@@ -13,19 +14,22 @@ export const ReportOrdersCommandHandler = {
       );
     }
 
-    const report = `
-    Número de pedidos: *${await queryOrder.selectTotalOrders()}*
-      Em produção: *${await queryOrder.selectAndCountByStatus('producao')}*
-      Finalizados: *${await queryOrder.selectAndCountByStatus('finalizado')}*
-      Entrega: *${await queryOrder.selectAndCountByStatus('entrega')}*
-      Retirada: *${await queryOrder.selectAndCountByStatus('retirada')}*
-      Faltando pagar: *${await queryOrder.selectByPaymentStatus('pendente')}*
-    \n
-    Total R$ pedidos:
-      Vendido: *R$ ${await queryOrder.selectTotalSumOrders()}*
-      Recebido: *R$ ${await queryOrder.selectByPaymentStatusAndSum('pago')}*
-      Faltando pagar: *R$ ${await queryOrder.selectByPaymentStatusAndSum(
-        'pendente',
+    const report = `*RELATÓRIO* 
+    \nNúmero de pedidos 📋: *${await queryOrder.selectTotalOrders()}*
+      Em produção ⌛️: *${await queryOrder.selectAndCountByStatus('producao')}*
+      Finalizados ✅: *${await queryOrder.selectAndCountByStatus('finalizado')}*
+      Entrega 🚚: *${await queryOrder.selectAndCountByStatus('entrega')}*
+      Retirada 🛎: *${await queryOrder.selectAndCountByStatus('retirada')}*
+      Faltando pagar 📲: *${await queryOrder.selectByPaymentStatus('pendente')}*
+    \nTotal *R$* pedidos:
+      Vendido 📈: *R$ ${HelperCurrency.priceToString(
+        await queryOrder.selectTotalSumOrders(),
+      )}*
+      Recebido ✅: *R$ ${HelperCurrency.priceToString(
+        await queryOrder.selectByPaymentStatusAndSum('pago'),
+      )}*
+      Faltando pagar ❗️: *R$ ${HelperCurrency.priceToString(
+        await queryOrder.selectByPaymentStatusAndSum('pendente'),
       )}*
     `;
 
