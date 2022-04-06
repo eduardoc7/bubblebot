@@ -56,6 +56,7 @@ export default class CreateOrder {
         items: JSON.stringify(items_array),
         location: this.order.location,
         chatId,
+        status: this.order.status,
       });
 
       await trx.commit();

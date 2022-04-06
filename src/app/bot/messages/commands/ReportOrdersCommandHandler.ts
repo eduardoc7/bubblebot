@@ -22,13 +22,13 @@ export const ReportOrdersCommandHandler = {
       Retirada 🛎: *${await queryOrder.selectAndCountByStatus('retirada')}*
       Faltando pagar 📲: *${await queryOrder.selectByPaymentStatus('pendente')}*
     \nTotal *R$* pedidos:
-      Vendido 📈: *R$ ${HelperCurrency.priceToString(
+      Vendido 📈: *${HelperCurrency.priceToString(
         await queryOrder.selectTotalSumOrders(),
       )}*
-      Recebido ✅: *R$ ${HelperCurrency.priceToString(
+      Recebido ✅: *${HelperCurrency.priceToString(
         await queryOrder.selectByPaymentStatusAndSum('pago'),
       )}*
-      Faltando pagar ❗️: *R$ ${HelperCurrency.priceToString(
+      Faltando pagar ❗️: *${HelperCurrency.priceToString(
         await queryOrder.selectByPaymentStatusAndSum('pendente'),
       )}*
     `;
