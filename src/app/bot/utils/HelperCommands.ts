@@ -72,4 +72,31 @@ export const HelperCommands = {
       \n\nVocê também pode digitar *#ver* para visualizar mais informações sobre seu pedido.`,
     );
   },
+  async updatePaymentStatusAndNotify(
+    order_id: number,
+    status_to_update: string,
+    msg: Message,
+  ): Promise<Message> {
+    let notification_to;
+    try {
+      notification_to = await UpdateOrder.updatePaymentByStatus(
+        order_id,
+        status_to_update,
+      );
+    } catch (e) {
+      console.error('Error updating order status: ', e);
+
+      return msg.reply('Ops! Ocorreu um erro ao buscar esse pedido.');
+    }
+
+    if (status_to_update === 'pago') {
+      return await client.sendMessage(
+        notification_to,
+        `Seu pagamento foi confirmado ✅!
+        \n\nVocê também pode digitar *#ver* para visualizar mais informações sobre seu pedido.`,
+      );
+    }
+
+    return msg.reply('');
+  },
 };
