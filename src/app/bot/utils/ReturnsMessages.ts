@@ -51,18 +51,25 @@ const production_status_message = `Opa, legal 🥳🥳. Verifiquei aqui e vi que
 \nPara gerar um novo pedido nos envie outro carrinho (você pode fazer isso quantas vezes quiser :>): *#car*
 \n\nVocê também pode digitar *#duvidas* para saber mais`;
 
+const entrega_status_message = `Opa, legal 🥳🥳. Verifiquei aqui e vi que o seu pedido está a caminho da sua localização. Qualquer atualização avisaremos!
+\n\nVocê também pode digitar *#duvidas* para saber mais`;
+
+const retirada_status_message = `Opa, legal 🥳🥳. Verifiquei aqui e vi que você tem um pedido pronto para retirada. Estamos aguardando você.
+\nPara saber mais sobre o seu pedido digite: *#ver*
+\n\nVocê também pode digitar *#duvidas* para saber mais`;
+
 const payment_required_message = `Vamos lá! Falta pouco para adquirir seus produtos, realize o pagamento para começarmos a preparar a sua encomenda.
 \n\nVocê também pode digitar *#duvidas* para saber mais`;
 
 const production_message = `Oba!! Seu pedido foi enviado para produção, você será notificado quando estiver pronto para entrega ou retirada.
-\n\nAgradecemos com muita enfâse a preferência. ❤️
+\n\nAgradecemos com muita ênfase a preferência. ❤️
 \nNos siga nas redes sociais para não perder nenhuma novidade:
 👉Instagram - https://www.instagram.com/magicbubblesart/
 👉Facebook - https://www.facebook.com/magicbubbles
 👉Whatsapp - bit.ly/36J59sd
 \nCompartilhe!`;
 
-const finished_order_message = `Estamos muito contente com a sua compra na nossa loja.
+const finished_order_message = `Estamos muito contente com a sua compra na nossa loja. Obrigado por utilizar nossos serviços, trabalhamos para sua experiência conosco ser a melhor!
 \nAgora você pode fazer um novo pedido: *#car*
 \nE visualizar o seu pedido finalizado: *#ver*
 
@@ -85,4 +92,6 @@ export {
   production_message,
   payment_required_message,
   finished_order_message,
+  entrega_status_message,
+  retirada_status_message,
 };

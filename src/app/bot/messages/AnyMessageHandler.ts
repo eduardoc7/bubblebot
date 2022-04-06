@@ -14,6 +14,8 @@ import {
   confirm_bairro_data,
   payment_required_message,
   finished_order_message,
+  entrega_status_message,
+  retirada_status_message,
 } from '../utils/ReturnsMessages';
 import OrderHandlerCache from '../cache/OrderHandlerCache';
 
@@ -58,6 +60,10 @@ export const AnyMessageHandler = {
           return msg.reply(payment_required_message);
         case 'producao':
           return msg.reply(production_status_message);
+        case 'entrega':
+          return msg.reply(entrega_status_message);
+        case 'retirada':
+          return msg.reply(retirada_status_message);
         case 'finalizado':
           return msg.reply(finished_order_message);
       }
