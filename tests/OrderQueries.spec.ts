@@ -35,6 +35,19 @@ describe('order queries on database', () => {
           →Preço: *${HelperCurrency.priceToString(Number(item.price))}*\n`;
       });
 
+      const delivery_data = () => {
+        if (item.delivery_method === 'entrega') {
+          return `
+          *Dados de entrega:*
+          •Forma de entrega: ${item.delivery_method}
+          •Balneário de entrega: ${location.bairro}
+          •Latitude: ${location.latitude}
+          •Longitude: ${location.longitude}
+          •Taxa de entrega: ${location.taxa_entrega}`;
+        }
+        return undefined;
+      };
+
       const message = `*DADOS DO PEDIDO*
         \n*ID*: ${item.id}
         \n*N° do pedido*: ${item.identifier}
@@ -42,15 +55,10 @@ describe('order queries on database', () => {
         •Nome: ${item.name}
         •Número de contato: ${item.contact_number}
         \n*Carrinho:*${items_to_print}
-        \n*Dados de entrega:*
-        •Forma de entrega: ${item.delivery_method}
-        •Balneário de entrega: ${location.bairro}
-        •Latitude: ${location.latitude}
-        •Longitude: ${location.longitude}
+        ${delivery_data() ?? ''}
         \n*Dados de pagamento:*
         •Forma de pagamento: ${item.payment_method}
         •Status do pagamento: ${item.payment_status}
-        •Taxa de entrega: ${location.taxa_entrega}
         \n*Status do pedido:* ${item.status}
         \nTotal da Compra: *${HelperCurrency.priceToString(Number(item.total))}*
         \n*Criado Em:* ${item.created_at}

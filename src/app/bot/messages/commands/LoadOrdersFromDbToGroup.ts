@@ -41,8 +41,21 @@ export const LoadOrdersFromDbToGroup = {
         return `
           •${item.name}:
           →Quantidade: ${item.quantity}
-          →Preço: *${HelperCurrency.priceToString(Number(item.price))}*\n`;
+          →Preço: *${HelperCurrency.priceToString(Number(item.price))}*`;
       });
+
+      const delivery_data = () => {
+        if (item.delivery_method === 'entrega') {
+          return `
+          *Dados de entrega:*
+          •Forma de entrega: ${item.delivery_method}
+          •Balneário de entrega: ${location.bairro}
+          •Latitude: ${location.latitude}
+          •Longitude: ${location.longitude}
+          •Taxa de entrega: ${location.taxa_entrega}`;
+        }
+        return undefined;
+      };
 
       const message = `*DADOS DO PEDIDO*
         \n*ID*: ${item.id}
@@ -51,20 +64,14 @@ export const LoadOrdersFromDbToGroup = {
         •Nome: ${item.name}
         •Número de contato: ${item.contact_number}
         \n*Carrinho:*${items_to_print}
-        \n*Dados de entrega:*
-        •Forma de entrega: ${item.delivery_method}
-        •Balneário de entrega: ${location.bairro}
-        •Latitude: ${location.latitude}
-        •Longitude: ${location.longitude}
+        ${delivery_data() ?? ''}
         \n*Dados de pagamento:*
         •Forma de pagamento: ${item.payment_method}
         •Status do pagamento: ${item.payment_status}
-        •Taxa de entrega: ${location.taxa_entrega}
         \n*Status do pedido:* ${item.status}
         \nTotal da Compra: *${HelperCurrency.priceToString(Number(item.total))}*
         \n*Criado Em:* ${item.created_at}
-        \n*Última atualização:* ${item.updated_at}
-       `;
+        \n*Última atualização:* ${item.updated_at}`;
       await group_chat.sendMessage(message);
     });
     const now = moment().format('DD-MM-YYYY-hh:mm:ss');

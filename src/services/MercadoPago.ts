@@ -133,7 +133,7 @@ export class MercadoPago {
         total_amount: Number(total_amount_items.toFixed(2)),
       };
     });
-    if (location?.taxa_entrega !== undefined) {
+    if (order.delivery_method === 'entrega') {
       items.push({
         title: 'Taxa de entrega',
         quantity: 1,
