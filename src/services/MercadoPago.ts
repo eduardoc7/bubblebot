@@ -145,14 +145,16 @@ export class MercadoPago {
         total_amount: Number(location?.taxa_entrega) / 1000 ?? 0,
       });
     }
-
+    const notification_url = this.isOrderFromDb
+      ? 'http://example.com'
+      : `${this.callback_url}/${this.getHashNotifictionUrl()}`;
     const data = {
       external_reference: this.getExternalReference(),
       description: `Pedido para ${order.name}`,
       title: `Venda para ${order.name}`,
       expiration_date: '2023-08-22T16:34:56.559-04:00',
       total_amount: Number(order.total) / 1000,
-      notification_url: `${this.callback_url}/${this.getHashNotifictionUrl()}`,
+      notification_url: notification_url,
       items: items,
     };
 
