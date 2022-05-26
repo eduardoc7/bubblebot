@@ -18,16 +18,16 @@ export const HelpCommandHandler = {
 
     const atendimento_object = {
       atendido: msg.from,
-      atendente: 'numero_atendimento@c.us',
+      atendente: '555555555555@c.us',
     };
 
     redisClient.set('atendimento:' + msg.from, 'true', { EX: 600 });
-    redisClient.set('atendimento:numero_atendimento@c.us', 'true');
+    redisClient.set('atendimento:555555555555@c.us', 'true');
     redisClient.set(
-      'atendimento:numero_atendimento@c.us:' + contact.pushname.toLowerCase(),
+      'atendimento:555555555555@c.us:' + contact.pushname.toLowerCase(),
       JSON.stringify(atendimento_object),
     );
 
-    return await client.sendMessage('numero_atendimento@c.us', message_to_reply);
+    return await client.sendMessage('555555555555@c.us', message_to_reply);
   },
 };
