@@ -11,23 +11,23 @@ export const HelpCommandHandler = {
     chat.sendMessage(`Poxa, que pena :(. Não encontrou o que precisava digitando *#duvidas*? Não se preocupe vamos melhorar isso.
     \n\nAguarde alguns instantes até algum de nossos atendentes te responder e solucionar seu problema.`);
 
-    const message_to_reply = `EIIIII. A Magic Bubbles precisa de um atendente no Whatsapp Business. Vai deixar esperando?
+    const message_to_reply = `EIIIII. A [nome da empresa] precisa de um atendente no Whatsapp Business. Vai deixar esperando?
     \nNome de quem solicitou: *${contact.pushname}*
     \nNúmero: ${await contact.getFormattedNumber()}
     \nCom a mensagem: ${msg.body}`;
 
     const atendimento_object = {
       atendido: msg.from,
-      atendente: '554184510719@c.us',
+      atendente: 'numero_atendimento@c.us',
     };
 
     redisClient.set('atendimento:' + msg.from, 'true', { EX: 600 });
-    redisClient.set('atendimento:554184510719@c.us', 'true');
+    redisClient.set('atendimento:numero_atendimento@c.us', 'true');
     redisClient.set(
-      'atendimento:554184510719@c.us:' + contact.pushname.toLowerCase(),
+      'atendimento:numero_atendimento@c.us:' + contact.pushname.toLowerCase(),
       JSON.stringify(atendimento_object),
     );
 
-    return await client.sendMessage('554184510719@c.us', message_to_reply);
+    return await client.sendMessage('numero_atendimento@c.us', message_to_reply);
   },
 };

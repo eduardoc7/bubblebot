@@ -48,8 +48,8 @@ export const HelperCommands = {
         message_to_reply = `\nAgora seu pedido foi finalizado ✅.
         \nAgradecemos a preferência! Obrigado por utilizar nossos serviços, trabalhamos para sua experiência conosco ser a melhor!.
         \nSe você gostou, compartilhe nos marcando nas redes sociais:
-        \n👉Instagram - https://www.instagram.com/magicbubblesart/
-        \n👉Facebook - https://www.facebook.com/magicbubbles`;
+        \n👉Instagram - [link do Instagram]
+        \n👉Facebook - [link do Facebook]`;
         break;
       case 'retirada':
         message_to_reply =

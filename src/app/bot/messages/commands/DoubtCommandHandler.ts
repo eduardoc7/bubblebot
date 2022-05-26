@@ -6,13 +6,13 @@ export const DoubtCommandHandler = {
     await chat.sendStateTyping();
 
     return msg.reply(`Quem somos nós?
-      👉 A Magic Bubbles é uma empresa de artesanato, que vende seus produtos de forma digital através do Whatsapp.
+      👉 [resposta]
       \nQual o local de atendimento?
-      👉 No momento, enviamos nossos produtos apenas para Pontal do Paraná - PR e região.
+      👉 [resposta]
       \nComo faço pra comprar os produtos?
       👉 Você pode escolher os itens que deseja no nosso catálogo e nos enviar um carrinho preenchido. Para ver como fazer isso, digite *#car*
       \nComo os produtos são feitos?
-      👉 Todos os nossos produtos são feitos a mão cuidando de cada minucioso detalhe para entregar o melhor para os nossos clientes.
+      👉 [resposta]
       \nO que eu posso fazer aqui pelo Whatsapp?
       👉 Gerar um pedido e fazer uma compra de modo automatizado: *#car*
       👉 Falar com um de nossos atendentes: *#ajuda*
@@ -21,9 +21,9 @@ export const DoubtCommandHandler = {
       👉 Para visualizar seu pedido: *#ver*
       👉 Para cancelar seu pedido: *#cancelar*
       \nNos siga nas redes sociais para não perder nenhuma novidade:
-      👉Instagram - https://www.instagram.com/magicbubblesart/
-      👉Facebook - https://www.facebook.com/magicbubbles
-      👉Whatsapp - bit.ly/36J59sd
+      👉Instagram - [link do Instagram]
+      👉Facebook - [link do Facebook]
+      👉Whatsapp - [link para contato]
       `);
   },
 };

@@ -16,9 +16,9 @@ const greeting_messages = [
   'boatarde',
 ];
 
-const greeting_message_to_reply = `Oiii. É um prazer tê-lo aqui. Seja muito bem vindo ao canal de atendimento e compras da ⭐ *Magic Bubbles* ⭐
+const greeting_message_to_reply = `Oiii. É um prazer tê-lo aqui. Seja muito bem vindo ao canal de atendimento e compras da ⭐ *[nome da empresa]* ⭐
   \nNossos robôs trabalham *24 horas por dia* e *7 dias da semana*, para oferecer o melhor atendimento aos nossos clientes.
-  \nTodo o *processo de compra* é feito pelo Whatsapp de forma automatizada, basta *acessar nosso catálogo aqui* https://wa.me/c/554199210363 -> enviar um *carrinho com os produtos* que deseja comprar e cuidaremos do resto pra você ;).
+  \nTodo o *processo de compra* é feito pelo Whatsapp de forma automatizada, basta *acessar nosso catálogo aqui* [link do catálogo] -> enviar um *carrinho com os produtos* que deseja comprar e cuidaremos do resto pra você ;).
   \nPara aprender a enviar um carrinho e fazer uma compra em nossa loja, digite: *#car* 
   \nVocê também pode digitar *#duvidas* para saber mais.`;
 
@@ -64,9 +64,9 @@ const payment_required_message = `Vamos lá! Falta pouco para adquirir seus prod
 const production_message = `Oba!! Seu pedido foi enviado para produção, você será notificado quando estiver pronto para entrega ou retirada.
 \n\nAgradecemos com muita ênfase a preferência. ❤️
 \nNos siga nas redes sociais para não perder nenhuma novidade:
-👉Instagram - https://www.instagram.com/magicbubblesart/
-👉Facebook - https://www.facebook.com/magicbubbles
-👉Whatsapp - bit.ly/36J59sd
+👉Instagram - [link do instagram]
+👉Facebook - [link do Facebook]
+👉Whatsapp - [link para contato]
 \nCompartilhe!`;
 
 const finished_order_message = `Estamos muito contente com a sua compra na nossa loja. Obrigado por utilizar nossos serviços, trabalhamos para sua experiência conosco ser a melhor!
