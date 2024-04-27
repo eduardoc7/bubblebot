@@ -28,6 +28,8 @@
 A Whatsapp bot that automates your sales without having to leave Whatsapp in an innovative way, allowing you to manage an order from its creation to delivery. Using [Redis](https://redis.io/) for order cache management to make it simple and fast.
 This application is a Client that simulates the connection to WhatsApp Web through **Puppeteer**, instantiating the connection in real time. 
 
+ <a href="https://buymeacoffee.com/eduardocorg" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
+
 ---
 
 ## 🧰 Features:
